@@ -22,6 +22,16 @@ you want with it.
 
   | Remote | LocalRepo -> | Committed | Index | Stash | LocalChanges (untracked) |
 
+* Status:
+You can view the state of the hole repository at any time.
+    git status
+
+* History
+You can view the history of your repository/current branch with
+    git log
+Command to view the hole commit tree
+[[http://stackoverflow.com/questions/1057564/pretty-git-branch-graphs][pretty branch graphs]]
+
 * Index:
 The index contain those changes to be committed the next time you do a "git commit"
 Adding a file to the index
