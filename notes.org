@@ -1,0 +1,135 @@
+* General Concepts
+trunk is called master
+Usually there is still a central place, where everyone can synchronize with. This is called "origin".
+Git is a distributed version control system, that means, everybody has its OWN local working copy of the whole repository and you can do, whatever
+you want with it.
+
+* GitConfig
+ First of all, you'll probably want to set your name and email for git:
+        git config --global user.name "Mario Bielert"
+        git config --global user.email "mario.bielert@tu-dresden.de"
+ (or in a specific repository without --global to set it for the this git repository)
+
+** Aliases:
+   If you tired of typing, like me, you can also create aliases inside git.
+   For instance I've got:
+   git config alias.st status
+   So I just have to type "git st" instead of "git status".
+
+* Setting up a new git repository
+  git init
+
+
+  | Remote | LocalRepo -> | Committed | Index | Stash | LocalChanges (untracked) |
+
+* Index:
+The index contain those changes to be committed the next time you do a "git commit"
+Adding a file to the index
+    git add file
+Just adding certain changes to the index
+    git add --patch file
+or  git add -p file
+
+* Commits:
+To commit the changes in the index
+    git commit
+or  git commit -m "commit message"
+
+To commit all changes at once (without adding them before)
+    git commit -a
+
+To change the last commit
+    git commit --amend
+
+** Undoing commits:
+Reset the HEAD Pointer to a commit before without delete the newer commit
+    git reset commitId
+If you just want to jump one commit backwards use
+    git reset HEAD~1
+
+To save the index and modified files while you goes backwards through your commits
+    git reset --soft HEAD~1
+
+If you want to delete all commits with there changes until a certain commit
+    git reset --hard HEAD~1
+
+If you want to bring one single file to a state of a certain commit
+    git checkout [commitid] filename
+
+Once we all are familiar with git, we should consider to switching to git-flow ().
+[[http://nvie.com/posts/a-successful-git-branching-model/][git-flow]]
+
+* Stashes
+I also forgot to tell you about one of my favourite commands.
+   git stash
+This will store every uncommitted changes you've done. With the following, you can reapply them:
+    git stash pop
+    git stash apply
+
+* Remote
+The Remote is something often named "origin" which is usual a bare repository where you 'pull' from and 'push' in.
+It represents the remote site of your repository.
+
+Getting a repository
+  git clone url [folder]
+
+Updating your local repository with the remote repository
+  git pull remote branch
+
+Putting your local updates to the remote repository
+  git push remote branch
+
+You can also maintain more than one remote of your repository
+  (for example to provide mirrors on different plattforms e.g. github)
+    git remote show
+
+See detail of a certain remote
+  git remote show remotename
+
+(set upstream foo)
+
+* Branching
+List all branches
+    git branch
+Create a new branch
+    git branch branchname
+or  git checkout -b branchname
+Change to a certain branch
+    git checkout <branchname>
+Delete a certain branch
+    git -d my_merged_branch
+
+If you're not satisfied with an uncommitted change, you can use:
+    git checkout some_file.ext
+to undo your changes, similar to "svn revert".
+
+Git really favours branching and I endorse you, to do so. The idea is, that every time you want to change something,
+you'll create a branch of master for your own. You should consider this branch private and shouldn't push it to origin.
+Then you'll work on this branch, until you'll be done. When you'll merge your changes back to the master branch.
+So a typical workflow would be:
+
+      1. Create a new branch of master branch and check it out
+      git checkout -b my_cool_feature
+
+      2. Do whatever you have to do, commit it in a regular fashion
+      git add ...
+      git commit
+
+      3. If there was several commits to master since you've branched of it, it's time to get those changes
+      git pull
+      git rebase master
+
+      4. Merge your changes back to master
+      git checkout master
+      git merge my_cool_feature
+
+      (Note: You could also rebase master on your branch, both methods have their own pros and cons.
+      Simply stick to merge for now.)
+
+      5. Push your changes of master to origin
+      git push
+
+(You might have to type the full commands once:
+      git pull origin master
+      git push origin master
+)
