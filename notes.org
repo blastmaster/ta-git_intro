@@ -1,20 +1,46 @@
 * General Concepts
 trunk is called master
+  SHA1-Hashes as Revisionnumber, 40 hexdecimal digits
+  - known as ref (git term)
+  - prefix of 7 digits should be enough
+  - commits refer the whole project not just one file file or directory as in svn
+    
 Usually there is still a central place, where everyone can synchronize with. This is called "origin".
 Git is a distributed version control system, that means, everybody has its OWN local working copy of the whole repository and you can do, whatever
 you want with it.
 
 * GitConfig
+  show config:
+      git config --list
+  get a certain config parameter
+    git config --get option
+  use --get-all if there are more than one parameter for one option
+  unsetting a option
+    git config --unset option
+    git config --unset-all option
+  distinguish config parameter global and repository-local
+  Global config are saved under $HOME/.gitconfig
+  local config are saved under .git/config
  First of all, you'll probably want to set your name and email for git:
         git config --global user.name "Mario Bielert"
         git config --global user.email "mario.bielert@tu-dresden.de"
  (or in a specific repository without --global to set it for the this git repository)
+  git config color.ui "auto"
+what can be configured? man git commit
 
 ** Aliases:
    If you tired of typing, like me, you can also create aliases inside git.
    For instance I've got:
    git config alias.st status
    So I just have to type "git st" instead of "git status".
+
+** Ignoring Files
+   .gitignore file can be placed in every directory of the project
+   one entry per line
+   empty lines and lines beginnig with '#' will be ignored
+   entries ending with '/' will handled as directory
+   entries beginning with '!' will negated
+   shell globs
 
 * Setting up a new git repository
   git init
@@ -32,13 +58,55 @@ You can view the history of your repository/current branch with
 Command to view the hole commit tree
 [[http://stackoverflow.com/questions/1057564/pretty-git-branch-graphs][pretty branch graphs]]
 
+* Repository
+  local copy are always a complete repository
+  complete history of every branch, not just current state
+  Getting a local copy of a remote repository
+    git clone URL
+  Where URL is defined as:
+    protocol://host[:port]/path/to/repository
+  If you clone a Repository you always get a copy of the whole repository
+  contains the complete revision history.
+  For cloning just a few commit e.g to contribute a bugfix use the --depth option
+    git clone --depth=42 URL #just clone the last three commits
+  After clone git checks the HEAD revision of the repository automatically out
+
 * Index:
-The index contain those changes to be committed the next time you do a "git commit"
+The index is a snapshot of the working tree to trace changes that should be committed.
+Changing the index is also known as staging.
+A commit adds the state of the index to the repository.
 Adding a file to the index
     git add file
+After git add the file or directory (with all underlying files) are under
+  version control.
+  You can use
+    git commit file dir/
+  to commit files that are already under version control direct to the
+  repository - no staging necessary
+  If you want to commit all changes from files that are under version control
+  directly you can use
+    git commit -a
 Just adding certain changes to the index
     git add --patch file
 or  git add -p file
+  In Patch modus changes are processed hunk-wise. Where a hunk is a peace of
+  a file surrounded by unchanged lines (Context)
+Interactive staging
+  git add --interactive
+
+* Moving and rename files
+  files, directories, or symbolic links can be moved with
+    git mv foo bar/foo
+  - do not lose the history
+  - changes considered in the index and in the local working copy
+
+* Delete files and directories
+  If git rm is called without the --cached parameter the file or directory is
+  deleted in the index and from filesystem. If --cached is given it's just
+  deleted from the index
+  git rm file
+  git rm --chached file
+  git rm -r dir/
 
 * Commits:
 To commit the changes in the index
@@ -63,10 +131,17 @@ To save the index and modified files while you goes backwards through your commi
 If you want to delete all commits with there changes until a certain commit
     git reset --hard HEAD~1
 
+If you want to delete commit and index but not the filesystem you can use
+   git reset --mixed HEAD~1
+
 If you want to bring one single file to a state of a certain commit
     git checkout [commitid] filename
 
-Once we all are familiar with git, we should consider to switching to git-flow ().
+To delete a specific commit, and his changes from revision history
+   git revert commitid
+Attention SVN-Users!!! svn revert is equivalent to git checkout
+
+Once we all are familiar with git, we should consider to switching to git-flow
 [[http://nvie.com/posts/a-successful-git-branching-model/][git-flow]]
 
 * Stashes
@@ -99,6 +174,7 @@ See detail of a certain remote
 (set upstream foo)
 
 * Branching
+
 List all branches
     git branch
 Create a new branch
