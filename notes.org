@@ -4,7 +4,7 @@ trunk is called master
   - known as ref (git term)
   - prefix of 7 digits should be enough
   - commits refer the whole project not just one file file or directory as in svn
-    
+
 Usually there is still a central place, where everyone can synchronize with. This is called "origin".
 Git is a distributed version control system, that means, everybody has its OWN local working copy of the whole repository and you can do, whatever
 you want with it.
@@ -51,6 +51,21 @@ what can be configured? man git commit
 * Status:
 You can view the state of the hole repository at any time.
     git status
+  this will show you, the state of your index files and modifications that
+  are staged and waiting to be committed.
+  Modified files, files with local changes. The file is already under version
+  control but these secific changes are not.
+  Untracked files, files that are in the sense of the filesystem in the
+  repository but git doesn't care about.
+** Who does this change?!?
+   If you want to know who does a specific change you can use
+    git blame file
+   git blame knows a lot of commandline switches. Please see the manpage here.
+   Good example might be
+   git blame -L 1,3 file #the part between the first and third line
+   The -L switch works also with regular expressions
+   git blame -L /foo/, /bar/ file # from the first occurence of foo to the first following occurence of bar
+   git blame -L /foo, +3 file # from the first occurence of foo and the next 3 lines
 
 * History
 You can view the history of your repository/current branch with
@@ -120,6 +135,7 @@ To change the last commit
     git commit --amend
 
 ** Undoing commits:
+Using git reset to throwing away
 Reset the HEAD Pointer to a commit before without delete the newer commit
     git reset commitId
 If you just want to jump one commit backwards use
@@ -144,12 +160,84 @@ Attention SVN-Users!!! svn revert is equivalent to git checkout
 Once we all are familiar with git, we should consider to switching to git-flow
 [[http://nvie.com/posts/a-successful-git-branching-model/][git-flow]]
 
+** Changing Commits
+   To change the history of a branch is something powerful but maybe also dangerous.
+   To merge, change, alter commits use git rebase.
+   git rebase --interactive HEAD~5 #alter the last five revisions
+   possible action's when rebasing commits:
+    pick - retain commit
+    squash - merge with the commit before
+    edit - let's  you change the selected commit from the filesystem after
+   that you stage them and change the commit with git commit --amend and
+   continue rebasing with git rebase --continue
+   To delete a certain commit, just delete the line of the commit
+
 * Stashes
-I also forgot to tell you about one of my favourite commands.
+With stashes you are able to cache local changes. If you need a clean
+workspace e.g. to switch in an other branch this may be very useful.
+Stashes are organized as a stack.
+To create a stash it is enough just to say
    git stash
-This will store every uncommitted changes you've done. With the following, you can reapply them:
-    git stash pop
+This will store every uncommitted changes you've done.
+you can give it a description (normally last commit message)
+  git stash save "before bugfix"
+to keep also already staged changes use
+  git stash --keep-index
+You can list all your stashes with
+  git stash list
+the output contain the name of the stash, the branch where the stash was
+  created from and the stash message
+Display a certain stash
+  git stash show
+if no stash is specified, git use the first form the top of the stack
+With the following, you can reapply them:
     git stash apply
+  will reapply the stash from the top of the stack
+    git stash pop
+  same as git stash apply but remove the stash from the list
+If you has stored stashes with --keep-index you must reapply them with
+  git stash apply --index
+  to reapply the index correctly
+It is also possible to reapply an stack in a new branch, this branch comes
+  from the revisionbranch where the stack was created.
+    git stash branch branchname # takes the top of the stash stack
+    git stash branchname stash@{0} # take a specific stash entry
+To delete stashes you can use
+  git stash drop # will delete the stash from the top of the stack
+  git stash drop stash@{0} # will delete a certain stash
+or delete all stashes
+  git stash clear
+
+* Tags
+  A tag is a symbolic name for a commit. You can use tags to
+  refer a commit also from other commands.
+  Create a Tag to the current HEAD
+    git tag -a tagname
+  or git tag -a tagname commitid
+  If a tag name already exists you can override them by using the -f parameter.
+  You can append a short description to the tag. This is really useful e.g.
+  to list the new features of the release.
+  This can be happen with the -m parameter to add the description direct from
+  the commandline.
+    git tag -a tagname -m "this is a relly important commit"
+  or you can also read the description from a file using -F as parameter.
+    git tag -tagname -F relase/1.0/notes.txt
+  If you neither using -m or -F git will open your configured editor where
+  you can place your tag description.
+  To delete a tag use
+    git tag -d tagname
+  To list all existing tags:
+    git tag
+  you can filter the result with
+    git tag -l pattern
+  or to display all commits that conatins a certain commit
+    git tag --contains commitid
+
+  Its also possible to sign tags with your pgp key using the -s parameter. If
+  you want to use an other keyid for signing then you can use the -u
+  parameter.
+  And verify the signed tag with
+    git verify-tag signedtagname
 
 * Remote
 The Remote is something often named "origin" which is usual a bare repository where you 'pull' from and 'push' in.
