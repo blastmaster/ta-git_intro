@@ -5,6 +5,15 @@ trunk is called master
   - prefix of 7 digits should be enough
   - commits refer the whole project not just one file file or directory as in svn
 
+** Git Stages
+   remote - upstream repository, hosted on the internet or network, ensuring
+            all your changes are available for other developers
+   local repo - a subdirectory named .git that contains all neccessary files
+                of your repository
+   index - holds a snapshot of your working tree.
+   workspace - local checkout
+   stash - a cache of your local changes.
+
 Usually there is still a central place, where everyone can synchronize with. This is called "origin".
 Git is a distributed version control system, that means, everybody has its OWN local working copy of the whole repository and you can do, whatever
 you want with it.
@@ -320,3 +329,4 @@ So a typical workflow would be:
 
 * References
   [[http://ndpsoftware.com/git-cheatsheet.html][git-cheatsheet]]
+  [[https://try.github.io/levels/1/challenges/1][try git]]
