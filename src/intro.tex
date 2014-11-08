@@ -1,0 +1,124 @@
+\section{Stages of Git}
+
+\begin{frame}
+    \frametitle{Stages of Git}
+    pgfversion \pgfversion
+    \begin{tikzpicture}
+        [ stage/.style={
+            rectangle,
+            draw=black!40,
+            fill=black!20,
+            rounded corners,
+            distance=3mm,
+            inner sep=0pt,
+            minimum size=2.0cm,
+            thick } ]
+        \node[stage] (remote)       [label=above:\texttt{remote}] {
+            %upstream repsoitory \\
+            %hosted on the internet or network \\
+            %ensuring that all your changes are available for other developers
+        };
+        \node[stage] (repo)         [right=of remote, label=above:\texttt{local respository}] {};
+        \node[stage] (index)        [right=of repo, label=above:\texttt{index}] {};
+        \node[stage] (workspace)    [right=of index, label=above:\texttt{workspace}] {};
+        \node[stage] (stash)        [right=of workspace, label=above:\texttt{stash}] {};
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+    \frametitle{no title} %TODO
+    \tikzstyle{stage} = [draw=solarized-blue, fill=solarized-base3!60, very thick,
+        rectangle, rounded corners, inner sep=10pt, inner ysep=20pt]
+    \tikzstyle{fancytitle} = [fill=solarized-blue, text=solarized-yellow]
+    \begin{tikzpicture}
+        \node [stage] (remote) {
+                \begin{minipage}{0.20\textwidth}
+                    upstream repository - the remote on the internet or network.
+                \end{minipage}
+            };
+            %\node [stage] (local) {
+                %\begin{minipage}{0.20\textwidth}
+                    %A subdirectory named \textit{.git} that contains all necessary
+                    %files of your respository.
+                %\end{minipage}
+            %};
+            %\node [stage] (index) {
+                %\begin{minipage}{0.20\textwidth}
+                    %holds a snapshot of your working tree
+                %\end{minipage}
+            %};
+            %\node [stage] (stash) {
+                %\begin{minipage}{0.20\textwidth}
+                    %a cache of your local changes
+                %\end{minipage}
+            %};
+        %\node[fancytitle, right=10pt] at (stash.north west) {stash};
+        %\node[fancytitle, right=10pt] at (index.north west) {index};
+        %\node[fancytitle, right=10pt] at (local.north west) {local repository};
+        \node[fancytitle, right=10pt] at (remote.north west) {remote};
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Rebasing} %TODO
+    \begin{figure}
+        \centering
+        \begin{tikzpicture}
+            \gitDAG[grow right sep = 2em]
+            {
+                A -- B -- {
+                    C,
+                    D -- E,
+                }
+            };
+            \gittag
+            [v0p1]
+            {v0.1}
+            {above=of A}
+            {A}
+            \gitremotebranch
+            [origmaster]
+            {origin/master}
+            {above=of C}
+            {C}
+            \gitbranch
+            {master}
+            {above=of E}
+            {E}
+            \gitHEAD
+            {above=of master}
+            {master}
+        \end{tikzpicture}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Rebasing}
+    \begin{figure}
+        \centering
+        \begin{tikzpicture}
+            \gitDAG[grow right sep = 2em] {
+                A -- B -- {
+                    C -- D' -- E',
+                    {[nodes=unreachable] D -- E},
+                }
+            };
+            \gittag
+            [v0p1]
+            {v0.1}
+            {above=of A}
+            {A}
+            \gitremotebranch
+            [origmaster]
+            {origin/master}
+            {above=of C}
+            {C}
+            \gitHEAD
+            {above=of master}
+            {master}
+            \SAandWT
+        \end{tikzpicture}
+    \end{figure}
+\end{frame}
+
+
