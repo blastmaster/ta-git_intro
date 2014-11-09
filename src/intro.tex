@@ -129,29 +129,68 @@
     \end{figure}
 \end{frame}
 
+
+
+% demonstrate merging of two branches
 \begin{frame}
     \frametitle{merging}
     \begin{figure}
-        \centering
-        \begin{tikzpicture}
-            \gitDAG[grow right sep = 2em]
-            {
-                A -- B -- {
-                    C,
-                    D -- E,
-                }
-            };
-            \gitbranch
-            {master}
-            {above=of C}
-            {C}
-            \gitbranch
-            {feature}
-            {above=of E}
-            {E}
-            \gitHEAD
-            {above=of feature}
-            {feature}
-        \end{tikzpicture}
+        \begin{subfigure}[b]{\textwidth}
+            \centering
+            \begin{tikzpicture}
+                \gitDAG[grow right sep = 2em]
+                {
+                    A -- B -- {
+                        C,
+                        D -- E,
+                    }
+                };
+                \gitbranch
+                {master}
+                {above=of C}
+                {C}
+                \gitbranch
+                {feature X}
+                {above=of E}
+                {E}
+                \gitHEAD
+                {above=of feature X}
+                {feature X}
+            \end{tikzpicture}
+            \subcaption{Before\ldots}
+        \end{subfigure}
     \end{figure}
 \end{frame}
+
+\begin{frame}
+    \frametitle{merging}
+    \begin{figure}
+        \begin{subfigure}[b]{\textwidth}
+            \centering
+            \begin{tikzpicture}
+                \gitDAG[grow right sep = 2em]
+                {
+                    A -- B -- {
+                        C -- E',
+                        {D -- E -- E'},
+                    }
+                };
+                \gitbranch
+                {master}
+                {above=of E'}
+                {E'}
+                \gitbranch
+                {feature X}
+                {below=of E}
+                {E}
+                \gitHEAD
+                {above=of master}
+                {master}
+            \end{tikzpicture}
+            \subcaption{after: \texttt{git merge feature X}}
+        \end{subfigure}
+    \end{figure}
+\end{frame}
+
+
+

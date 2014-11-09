@@ -1,4 +1,4 @@
 ta-git_intro
 ============
 
-Short introduction into git
+A short introduction into git.
