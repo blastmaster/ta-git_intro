@@ -65,50 +65,65 @@
                 minimum height = 2em,
                 text opacity = 0.75,
                 semithick ]
+            \tikzstyle{whatis} = [
+                node distance = 1.4em,
+                left,
+                font = \fontfamily{lmtt}\selectfont\tiny]
             \node[state] (remote) {remote};
-            \node[state] (repository) [below=of remote] {.git directory\\
+            \node[state] (repository) [below=of remote] {.git directory \\
                                                          (Repository)};
             \node[state] (index) [below=of repository] {Staging Area};
             \node[state] (stash) [below=of index] {Stash};
             \node[state] (tree)  [below=of stash] {Working Directory};
+
+            \node[whatis] at (remote.west) {Repository on the internet or network};
+            \node[whatis] at (repository.west) {local repository that contains complete history};
+            \node[whatis] at (index.west) {Snapshot of the working tree for next commit};
+            \node[whatis] at (stash.west) {A place to hide modification if you need a clean workspace};
+            \node[whatis] at (tree.west) {The direcotries and files on your filesystem};
         \end{tikzpicture}
     \end{figure}
 \end{frame}
 
 
 \begin{frame}
-    \frametitle{no title} %TODO
-    \tikzstyle{stage} = [draw=solarized-blue, fill=solarized-base3!60, very thick,
-        rectangle, rounded corners, inner sep=10pt, inner ysep=20pt]
-    \tikzstyle{fancytitle} = [fill=solarized-blue, text=solarized-yellow]
-    \begin{tikzpicture}
-        \node [stage] (remote) {
-                \begin{minipage}{0.20\textwidth}
-                    upstream repository - the remote on the internet or network.
-                \end{minipage}
-            };
-            %\node [stage] (local) {
-                %\begin{minipage}{0.20\textwidth}
-                    %A subdirectory named \textit{.git} that contains all necessary
-                    %files of your respository.
-                %\end{minipage}
-            %};
-            %\node [stage] (index) {
-                %\begin{minipage}{0.20\textwidth}
-                    %holds a snapshot of your working tree
-                %\end{minipage}
-            %};
-            %\node [stage] (stash) {
-                %\begin{minipage}{0.20\textwidth}
-                    %a cache of your local changes
-                %\end{minipage}
-            %};
-        %\node[fancytitle, right=10pt] at (stash.north west) {stash};
-        %\node[fancytitle, right=10pt] at (index.north west) {index};
-        %\node[fancytitle, right=10pt] at (local.north west) {local repository};
-        \node[fancytitle, right=10pt] at (remote.north west) {remote};
-    \end{tikzpicture}
+    \frametitle{}
+
 \end{frame}
+
+%\begin{frame}
+    %\frametitle{no title} %TODO
+    %\tikzstyle{stage} = [draw=solarized-blue, fill=solarized-base3!60, very thick,
+        %rectangle, rounded corners, inner sep=10pt, inner ysep=20pt]
+    %\tikzstyle{fancytitle} = [fill=solarized-blue, text=solarized-yellow]
+    %\begin{tikzpicture}
+        %\node [stage] (remote) {
+                %\begin{minipage}{0.20\textwidth}
+                    %upstream repository - the remote on the internet or network.
+                %\end{minipage}
+            %};
+            %%\node [stage] (local) {
+                %%\begin{minipage}{0.20\textwidth}
+                    %%A subdirectory named \textit{.git} that contains all necessary
+                    %%files of your respository.
+                %%\end{minipage}
+            %%};
+            %%\node [stage] (index) {
+                %%\begin{minipage}{0.20\textwidth}
+                    %%holds a snapshot of your working tree
+                %%\end{minipage}
+            %%};
+            %%\node [stage] (stash) {
+                %%\begin{minipage}{0.20\textwidth}
+                    %%a cache of your local changes
+                %%\end{minipage}
+            %%};
+        %%\node[fancytitle, right=10pt] at (stash.north west) {stash};
+        %%\node[fancytitle, right=10pt] at (index.north west) {index};
+        %%\node[fancytitle, right=10pt] at (local.north west) {local repository};
+        %\node[fancytitle, right=10pt] at (remote.north west) {remote};
+    %\end{tikzpicture}
+%\end{frame}
 
 \begin{frame}
     \frametitle{The Three States}
