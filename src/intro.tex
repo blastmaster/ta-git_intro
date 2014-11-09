@@ -17,6 +17,40 @@
 %\end{frame}
 
 \begin{frame}
+    \frametitle{setting up your environment}
+    Let git know who you are\ldots
+    \begin{description}
+        \item[set user] \hfill \\
+            git config -\,-global user.name "Max Mustermann"
+        \item[set email] \hfill \\
+            git config -\,-global user.email "max.mustermann@example.org"
+    \end{description}
+\end{frame}
+
+\begin{frame}
+    \frametitle{git config}
+    global vs. local config
+    \begin{itemize}
+        \item global config in \$HOME/.gitconfig
+        \item repository local config .git/config
+    \end{itemize}
+    \begin{description}
+        \item[aliases] \hfill \\
+            git config alias.st=git status
+        \item[highlighting] \hfill \\
+            git config -\,-global color.ui=always
+    \end{description}
+\end{frame}
+
+\begin{frame}
+    \frametitle{lets start\ldots}
+    mkdir my\_new\_project; cd my\_new\_project \\
+    git init \\
+    or\ldots getting local copy of repository that already exist.\\
+    git clone \url{https://github.com/blastmaster/ta-git\_intro.git}
+\end{frame}
+
+\begin{frame}
     \frametitle{no title} %TODO
     \tikzstyle{stage} = [draw=solarized-blue, fill=solarized-base3!60, very thick,
         rectangle, rounded corners, inner sep=10pt, inner ysep=20pt]
