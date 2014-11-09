@@ -3,22 +3,20 @@
 \begin{frame}
     \frametitle{Stages of Git}
     pgfversion \pgfversion
-    \begin{tikzpicture}
-        [ stage/.style={
-            rectangle,
-            draw=black!40,
-            fill=black!20,
-            rounded corners,
-            distance=3mm,
-            inner sep=0pt,
-            minimum size=2.0cm,
-            thick } ]
+    \tikzstyle{stage} = [ rectangle,
+        draw=black!40,
+        fill=black!20,
+        rounded corners,
+        inner sep=0pt,
+        minimum size=2.0cm,
+        thick ]
+    \begin{tikzpicture}[node distance=5mm]
         \node[stage] (remote)       [label=above:\texttt{remote}] {
             %upstream repsoitory \\
             %hosted on the internet or network \\
             %ensuring that all your changes are available for other developers
         };
-        \node[stage] (repo)         [right=of remote, label=above:\texttt{local respository}] {};
+        \node[stage] (repo)         [right=of remote, label=above:\texttt{local}] {};
         \node[stage] (index)        [right=of repo, label=above:\texttt{index}] {};
         \node[stage] (workspace)    [right=of index, label=above:\texttt{workspace}] {};
         \node[stage] (stash)        [right=of workspace, label=above:\texttt{stash}] {};
@@ -113,12 +111,47 @@
             {origin/master}
             {above=of C}
             {C}
+            \gitbranch
+            {master}
+            {above=of E'}
+            {E'}
             \gitHEAD
             {above=of master}
             {master}
+            \gitblob
+            {above=of B}
+            {master}
             \SAandWT
+            \toSAorWT
+            {E}
+            {stagingarea}
         \end{tikzpicture}
     \end{figure}
 \end{frame}
 
-
+\begin{frame}
+    \frametitle{merging}
+    \begin{figure}
+        \centering
+        \begin{tikzpicture}
+            \gitDAG[grow right sep = 2em]
+            {
+                A -- B -- {
+                    C,
+                    D -- E,
+                }
+            };
+            \gitbranch
+            {master}
+            {above=of C}
+            {C}
+            \gitbranch
+            {feature}
+            {above=of E}
+            {E}
+            \gitHEAD
+            {above=of feature}
+            {feature}
+        \end{tikzpicture}
+    \end{figure}
+\end{frame}
