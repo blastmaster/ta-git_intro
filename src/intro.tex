@@ -51,6 +51,32 @@
 \end{frame}
 
 \begin{frame}
+    \frametitle{What is a git repository?}
+    \begin{figure}[b]{\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \tikzstyle{state} = [ draw,
+                node distance = 1.4em,
+                drop shadow = {opacity=0.15},
+                font = \fontfamily{lmtt}\selectfont\small,
+                shape = rectangle,
+                rounded corners = .5em,
+                minimum width = 7em,
+                minimum height = 2em,
+                text opacity = 0.75,
+                semithick ]
+            \node[state] (remote) {remote};
+            \node[state] (repository) [below=of remote] {.git directory\\
+                                                         (Repository)};
+            \node[state] (index) [below=of repository] {Staging Area};
+            \node[state] (stash) [below=of index] {Stash};
+            \node[state] (tree)  [below=of stash] {Working Directory};
+        \end{tikzpicture}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}
     \frametitle{no title} %TODO
     \tikzstyle{stage} = [draw=solarized-blue, fill=solarized-base3!60, very thick,
         rectangle, rounded corners, inner sep=10pt, inner ysep=20pt]
