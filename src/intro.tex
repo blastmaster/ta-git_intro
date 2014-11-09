@@ -231,17 +231,23 @@
         \begin{subfigure}{\textwidth}
             \centering
             \begin{tikzpicture}
-                \tikzstyle{stage} = [ rectangle,
-                    draw=black!40,
-                    fill=black!20,
-                    rounded corners,
-                    inner sep=0pt,
-                    minimum size=1.0cm,
-                    thick ]
-                    \node[stage] (remote) [label=right:remote \texttt{origin}] {\url{git.kernel.org/pub/scm/git/git.git}};
-                    \node[stage] (working) [below=of remote,label=right:local copy] {\url{~/devel/git/git.git}}
-                        edge [<-, bend right=45]  node[right] {\tiny{git pull origin master}} (remote)
-                        edge [->, bend left=45] node[left] {\tiny{git push origin master}} (remote);
+            \tikzstyle{state} = [ draw,
+                node distance = 1.4em,
+                drop shadow = {opacity=0.15},
+                font = \fontfamily{lmtt}\selectfont\small,
+                shape = rectangle,
+                rounded corners = .5em,
+                minimum width = 7em,
+                minimum height = 2em,
+                text opacity = 0.75,
+                semithick ]
+            \tikzstyle{whatis} = [
+                node distance = 1.4em,
+                font = \fontfamily{lmtt}\selectfont\tiny]
+                    \node[state] (remote) {remote: origin};
+                    \node[state] (working) [below=of remote] {local repository}
+                        edge [<-, in=0, out=0]  node[whatis, right] {git pull origin master} (remote)
+                        edge [->, in=180, out=180] node[whatis, left] {git push origin master} (remote);
             \end{tikzpicture}
         \end{subfigure}
         \begin{subfigure}[b]{\textwidth}
@@ -258,18 +264,27 @@
         \begin{subfigure}{\textwidth}
             \centering
             \begin{tikzpicture}
-                \tikzstyle{stage} = [ rectangle,
-                    draw=black!40,
-                    fill=black!20,
-                    rounded corners,
-                    inner sep=0pt,
-                    minimum size=1.0cm,
-                    thick ]
-                \node[stage] (remote) [label=above:\scriptsize{remote \texttt{origin}}] {kernel.org};
-                \node[stage] (remote2) [right=of remote, label=above:\scriptsize{remote \texttt{foo}}] {github.com};
-                \node[stage] (working) [below=of remote, xshift=1.25cm, label=right:\scriptsize{local copy}] {localhost}
-                    edge [<->, bend left=45] node[auto] {\tiny{git pull origin master}} node[left] {\tiny{git push origin master}} (remote)
-                    edge [<->, bend right=45] node[auto] {\tiny{git pull foo master}} node[left] {\tiny{git push foo master}} (remote2);
+                \tikzstyle{state} = [ draw,
+                    node distance = 1.4em,
+                    drop shadow = {opacity=0.15},
+                    font = \fontfamily{lmtt}\selectfont\small,
+                    shape = rectangle,
+                    rounded corners = .5em,
+                    minimum width = 7em,
+                    minimum height = 2em,
+                    text opacity = 0.75,
+                    semithick ]
+                \tikzstyle{whatis} = [
+                    node distance = 2.4em,
+                    font = \fontfamily{lmtt}\selectfont\tiny]
+                \node[state] (remote) {remote: origin};
+                \node[state] (remote2) [right=of remote] {remote: github};
+                \node[state] (working) [below=of remote, xshift=1.25cm] {local copy}
+                    edge [<->, in=180, out=180] node[whatis, left, align=center, midway] {
+                    git pull origin master \\
+                    git push origin master} (remote)
+                    edge [<->, in=0, out=0] node[whatis, right, align=center, midway] {git pull foo master \\
+                    git push foo master} (remote2);
             \end{tikzpicture}
         \end{subfigure}
         \begin{subfigure}[b]{\textwidth}
@@ -463,5 +478,4 @@
         \end{subfigure}
     \end{figure}
 \end{frame}
-
 
