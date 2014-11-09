@@ -1,27 +1,20 @@
 \section{Stages of Git}
 
-\begin{frame}
-    \frametitle{Stages of Git}
-    pgfversion \pgfversion
-    \tikzstyle{stage} = [ rectangle,
-        draw=black!40,
-        fill=black!20,
-        rounded corners,
-        inner sep=0pt,
-        minimum size=2.0cm,
-        thick ]
-    \begin{tikzpicture}[node distance=5mm]
-        \node[stage] (remote)       [label=above:\texttt{remote}] {
-            %upstream repsoitory \\
-            %hosted on the internet or network \\
-            %ensuring that all your changes are available for other developers
-        };
-        \node[stage] (repo)         [right=of remote, label=above:\texttt{local}] {};
-        \node[stage] (index)        [right=of repo, label=above:\texttt{index}] {};
-        \node[stage] (workspace)    [right=of index, label=above:\texttt{workspace}] {};
-        \node[stage] (stash)        [right=of workspace, label=above:\texttt{stash}] {};
-    \end{tikzpicture}
-\end{frame}
+%\begin{frame}
+    %\frametitle{Stages of Git}
+    %pgfversion \pgfversion
+    %\begin{tikzpicture}[node distance=5mm]
+        %\node[stage] (remote)       [label=above:\texttt{remote}] {
+            %%upstream repsoitory \\
+            %%hosted on the internet or network \\
+            %%ensuring that all your changes are available for other developers
+        %};
+        %\node[stage] (repo)         [right=of remote, label=above:\texttt{local}] {};
+        %\node[stage] (index)        [right=of repo, label=above:\texttt{index}] {};
+        %\node[stage] (workspace)    [right=of index, label=above:\texttt{workspace}] {};
+        %\node[stage] (stash)        [right=of workspace, label=above:\texttt{stash}] {};
+    %\end{tikzpicture}
+%\end{frame}
 
 \begin{frame}
     \frametitle{no title} %TODO
@@ -55,6 +48,80 @@
         %\node[fancytitle, right=10pt] at (local.north west) {local repository};
         \node[fancytitle, right=10pt] at (remote.north west) {remote};
     \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The Three States}
+    \begin{figure}[b]{\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{../img/three_states.png}
+    \end{figure}
+    % TODO add reference
+    % http://www.git-scm.com/book/en/v2/book/01-introduction/images/areas.png
+\end{frame}
+
+\begin{frame}
+    \frametitle{Lifecycle of our files}
+    \begin{figure}[b]{\textwidth}
+        \centering
+            \includegraphics[width=\textwidth]{../img/file_lifecycle.png}
+    \end{figure}
+    % TODO add reference
+    % http://www.git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository
+\end{frame}
+
+\begin{frame}
+    \frametitle{remote}
+    \begin{figure}
+        \begin{subfigure}{\textwidth}
+            \centering
+            \begin{tikzpicture}
+                \tikzstyle{stage} = [ rectangle,
+                    draw=black!40,
+                    fill=black!20,
+                    rounded corners,
+                    inner sep=0pt,
+                    minimum size=1.0cm,
+                    thick ]
+                    \node[stage] (remote) [label=right:remote \texttt{origin}] {\url{git.kernel.org/pub/scm/git/git.git}};
+                    \node[stage] (working) [below=of remote,label=right:local copy] {\url{~/devel/git/git.git}}
+                        edge [<-, bend right=45]  node[right] {\tiny{git pull origin master}} (remote)
+                        edge [->, bend left=45] node[left] {\tiny{git push origin master}} (remote);
+            \end{tikzpicture}
+        \end{subfigure}
+        \begin{subfigure}[b]{\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{../img/show_remote.png}
+        \end{subfigure}
+    \end{figure}
+    \texttt{git remote -v} shows where the remote points to.
+\end{frame}
+
+\begin{frame}
+    \frametitle{adding a remote}
+    \begin{figure}
+        \begin{subfigure}{\textwidth}
+            \centering
+            \begin{tikzpicture}
+                \tikzstyle{stage} = [ rectangle,
+                    draw=black!40,
+                    fill=black!20,
+                    rounded corners,
+                    inner sep=0pt,
+                    minimum size=1.0cm,
+                    thick ]
+                \node[stage] (remote) [label=above:\scriptsize{remote \texttt{origin}}] {kernel.org};
+                \node[stage] (remote2) [right=of remote, label=above:\scriptsize{remote \texttt{foo}}] {github.com};
+                \node[stage] (working) [below=of remote, xshift=1.25cm, label=right:\scriptsize{local copy}] {localhost}
+                    edge [<->, bend left=45] node[auto] {\tiny{git pull origin master}} node[left] {\tiny{git push origin master}} (remote)
+                    edge [<->, bend right=45] node[auto] {\tiny{git pull foo master}} node[left] {\tiny{git push foo master}} (remote2);
+            \end{tikzpicture}
+        \end{subfigure}
+        \begin{subfigure}[b]{\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{../img/adding_remote.png}
+        \end{subfigure}
+    \end{figure}
 \end{frame}
 
 \begin{frame}
@@ -129,7 +196,57 @@
     \end{figure}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Tags}
+    Tags are like bookmarks on commits.
+    \begin{figure}
+        \begin{subfigure}[b]{\textwidth}
+            \centering
+            \begin{tikzpicture}
+                \gitDAG[grow right sep = 2em]
+                {
+                    A -- B -- C
+                };
+                \gitbranch
+                {master}
+                {above=of C}
+                {C}
+                \gitHEAD
+                {above=of master}
+                {master}
+            \end{tikzpicture}
+            \subcaption{\texttt{git tag -a v0.1 A}}
+        \end{subfigure}
+    \end{figure}
+\end{frame}
 
+\begin{frame}
+    \frametitle{tags}
+    \begin{figure}
+        \begin{subfigure}[b]{\textwidth}
+            \centering
+            \begin{tikzpicture}
+                \gitDAG[grow right sep = 2em]
+                {
+                    A -- B -- C
+                };
+                \gitbranch
+                {master}
+                {above=of C}
+                {C}
+                \gittag
+                [v0p1]
+                {v0.1}
+                {above=of A}
+                {A}
+                \gitHEAD
+                {above=of master}
+                {master}
+            \end{tikzpicture}
+            \subcaption{our brand new tag!}
+        \end{subfigure}
+    \end{figure}
+\end{frame}
 
 % demonstrate merging of two branches
 \begin{frame}
@@ -191,6 +308,5 @@
         \end{subfigure}
     \end{figure}
 \end{frame}
-
 
 
