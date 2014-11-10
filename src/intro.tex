@@ -1,40 +1,57 @@
 \section{Stages of Git}
 
-\begin{frame}
+\defverbatim\setusername{%
+    \scriptsize
+    \verb+git config --global user.name "Max Mustermann"+
+    \newline
+}
+\defverbatim\setusermail{%
+    \scriptsize
+    \verb+git config --global user.mail "max.mustermann@example.org"+
+    \newline
+}
+
+\begin{frame}[fragile]
     \frametitle{setting up your environment}
-    Let git know who you are\ldots
-    \begin{description}
-        \item[set user] \hfill \\
-            git config -\,-global user.name "Max Mustermann"
-        \item[set email] \hfill \\
-            git config -\,-global user.email "max.mustermann@example.org"
-    \end{description}
+    \only<1>Let git know who you are\ldots
+    \begin{lstlisting}
+git config --global user.name "Max Mustermann"
+git config --global user.mail "max.m@example.org"
+    \end{lstlisting}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
     \frametitle{git config}
-    global vs. local config
-    \begin{itemize}
-        \item global config in \$HOME/.gitconfig
-        \item repository local config .git/config
-    \end{itemize}
+    %global vs. local config
+    %\begin{itemize}
+        %\item global config in \$HOME/.gitconfig
+        %\item repository local config .git/config
+    %\end{itemize}
     \begin{description}
         \item[aliases] \hfill \\
-            git config alias.st=git status
+            \begin{lstlisting}
+git config alias.st=git status
+            \end{lstlisting}
         \item[highlighting] \hfill \\
-            git config -\,-global color.ui=always
+            \begin{lstlisting}
+git config --global color.ui=always
+            \end{lstlisting}
     \end{description}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
     \frametitle{lets start\ldots}
-    mkdir my\_new\_project; cd my\_new\_project \\
-    git init \\
+    \begin{lstlisting}
+mkdir my_new_project; cd my_new_project
+git init
+    \end{lstlisting}
     or\ldots getting local copy of repository that already exist.\\
-    git clone \url{https://github.com/blastmaster/ta-git\_intro.git}
+    \begin{lstlisting}
+git clone https://github.com/blastmaster/ta-git_intro.git
+    \end{lstlisting}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
     \frametitle{What is a git repository?}
     \begin{figure}[b]{\textwidth}
         \centering
@@ -54,8 +71,7 @@
                 left,
                 font = \fontfamily{lmtt}\selectfont\tiny]
             \node[state] (remote) {remote};
-            \node[state] (repository) [below=of remote] {.git directory \\
-                                                         (Repository)};
+            \node[state] (repository) [below=of remote] {Local Repository};
             \node[state] (index) [below=of repository] {Staging Area};
             \node[state] (stash) [below=of index] {Stash};
             \node[state] (tree)  [below=of stash] {Working Directory};
@@ -95,9 +111,6 @@
     \end{figure}
 \end{frame}
 
-
-% TODO
-% add git stash --keep-index
 \begin{frame}
     \frametitle{Stashing}
     \begin{figure}[b]{\textwidth}
@@ -116,7 +129,6 @@
             \tikzstyle{whatis} = [
                 node distance = 1.4em,
                 font = \fontfamily{lmtt}\selectfont\tiny]
-            \node[state] (index) {Staging Area};
             \node[state] (stash) [below=of index] {Stash};
             \node[state] (tree)  [below=of stash] {Working Directory}
                 edge [->, out=0, in=0] node [whatis, right] {git stash} (stash)
@@ -155,7 +167,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{version control happens local} % TODO
+    \frametitle{version control happens local}
     \begin{figure}[b]{\textwidth}
         \centering
         \includegraphics[width=0.9\textwidth]{../img/three_states.png}
@@ -176,10 +188,9 @@
 
 \begin{frame}
     \frametitle{remote}
-    \begin{figure}
-        \begin{subfigure}{\textwidth}
-            \centering
-            \begin{tikzpicture}
+    \begin{figure}[b]{\textwidth}
+        \centering
+        \begin{tikzpicture}
             \tikzstyle{state} = [ draw,
                 node distance = 1.4em,
                 drop shadow = {opacity=0.15},
@@ -189,107 +200,117 @@
                 minimum width = 7em,
                 minimum height = 2em,
                 text opacity = 0.75,
-                semithick ]
+            semithick ]
             \tikzstyle{whatis} = [
                 node distance = 1.4em,
                 font = \fontfamily{lmtt}\selectfont\tiny]
-                    \node[state] (remote) {remote: origin};
-                    \node[state] (working) [below=of remote] {local repository}
-                        edge [<-, in=0, out=0]  node[whatis, right] {git pull origin master} (remote)
-                        edge [->, in=180, out=180] node[whatis, left] {git push origin master} (remote);
-            \end{tikzpicture}
-        \end{subfigure}
-        \begin{subfigure}[b]{\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{../img/show_remote.png}
-        \end{subfigure}
+                \node[state] (remote) {remote: origin};
+                \node[state] (working) [below=of remote] {local repository}
+                edge [<-, in=0, out=0]  node[whatis, right] {git pull origin master} (remote)
+                edge [->, in=180, out=180] node[whatis, left] {git push origin master} (remote);
+        \end{tikzpicture}
+        \includegraphics[width=\textwidth]{../img/show_remote.png}
     \end{figure}
 \end{frame}
 
-\begin{frame}
+
+\defverbatim\myadd{%
+    \scriptsize
+    \verb+git add remote github git@github.com:username/repo.git+
+    \newline
+}
+
+\begin{frame}[fragile]
     \frametitle{adding a remote}
+    \myadd
     \begin{figure}
-        \begin{subfigure}{\textwidth}
-            \centering
-            \begin{tikzpicture}
-                \tikzstyle{state} = [ draw,
-                    node distance = 1.4em,
-                    drop shadow = {opacity=0.15},
-                    font = \fontfamily{lmtt}\selectfont\small,
-                    shape = rectangle,
-                    rounded corners = .5em,
-                    minimum width = 7em,
-                    minimum height = 2em,
-                    text opacity = 0.75,
-                    semithick ]
-                \tikzstyle{whatis} = [
-                    node distance = 2.4em,
-                    font = \fontfamily{lmtt}\selectfont\tiny]
+        \centering
+        \begin{tikzpicture}
+            \tikzstyle{state} = [ draw,
+                node distance = 1.4em,
+                drop shadow = {opacity=0.15},
+                font = \fontfamily{lmtt}\selectfont\small,
+                shape = rectangle,
+                rounded corners = .5em,
+                minimum width = 7em,
+                minimum height = 2em,
+                text opacity = 0.75,
+            semithick ]
+            \tikzstyle{whatis} = [
+                node distance = 2.4em,
+                font = \fontfamily{lmtt}\selectfont\tiny]
                 \node[state] (remote) {remote: origin};
                 \node[state] (remote2) [right=of remote] {remote: github};
                 \node[state] (working) [below=of remote, xshift=1.25cm] {local copy}
-                    edge [<->, in=180, out=180] node[whatis, left, align=center, midway] {
+                edge [<->, in=180, out=180] node[whatis, left, align=center] {
                     git pull origin master \\
-                    git push origin master} (remote)
-                    edge [<->, in=0, out=0] node[whatis, right, align=center, midway] {git pull foo master \\
-                    git push foo master} (remote2);
-            \end{tikzpicture}
-        \end{subfigure}
-        \begin{subfigure}[b]{\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{../img/adding_remote.png}
-        \end{subfigure}
+                git push origin master} (remote)
+                edge [<->, in=0, out=0] node[whatis, right, align=center] {git pull github master \\
+                git push github master} (remote2);
+        \end{tikzpicture}
     \end{figure}
 \end{frame}
+
+\defverbatim\mytag{%
+    \scriptsize
+    \verb+git tag -a v0.1 A+
+    \newline
+}
 
 \begin{frame}
     \frametitle{Tags}
     Tags are like bookmarks on commits.
-    \begin{figure}
-        \begin{subfigure}[b]{\textwidth}
-            \centering
-            \begin{tikzpicture}
-                \gitDAG[grow right sep = 2em]
-                {
-                    A -- B -- C
-                };
-                \gitbranch
-                {master}
-                {above=of C}
-                {C}
-                \gitHEAD
-                {above=of master}
-                {master}
-            \end{tikzpicture}
-            \subcaption{\texttt{git tag -a v0.1 A}}
-        \end{subfigure}
+    \begin{figure}[b]{\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \gitDAG[grow right sep = 2em]
+            {
+                A -- B -- C
+            };
+            \gitbranch
+            {master}
+            {above=of C}
+            {C}
+            \gitHEAD
+            {above=of master}
+            {master}
+        \end{tikzpicture}
+        \caption{lets create a tag for commit A}
     \end{figure}
 \end{frame}
 
 \begin{frame}
+    \frametitle{Tags - Syntax}
+    \begin{description}
+        \item[create tag] git tag -a <commitid>
+        \item[delete tag] git tag -d <tagname>
+        \item[filter tag] git tag -l <pattern>
+    \end{description}
+\end{frame}
+
+\begin{frame}[fragile]
     \frametitle{Tags}
-    \begin{figure}
-        \begin{subfigure}[b]{\textwidth}
-            \centering
-            \begin{tikzpicture}
-                \gitDAG[grow right sep = 2em]
-                {
-                    A -- B -- C
-                };
-                \gitbranch {master}
-                {above=of C}
-                {C}
-                \gittag
-                [v0p1]
-                {v0.1}
-                {above=of A}
-                {A}
-                \gitHEAD
-                {above=of master}
-                {master}
-            \end{tikzpicture}
-            \subcaption{our brand new tag!}
-        \end{subfigure}
+    \mytag
+    \begin{figure}[b]{\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \gitDAG[grow right sep = 2em]
+            {
+                A -- B -- C
+            };
+            \gitbranch {master}
+            {above=of C}
+            {C}
+            \gittag
+            [v0p1]
+            {v0.1}
+            {above=of A}
+            {A}
+            \gitHEAD
+            {above=of master}
+            {master}
+        \end{tikzpicture}
+        \caption{our brand new tag!}
     \end{figure}
 \end{frame}
 
@@ -319,11 +340,18 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{TIMTOWTDI}
-    \begin{itemize}
-        \item git branch <branchname>
-        \item git checkout -b <branchname>
-    \end{itemize}
+    \frametitle{Branch Syntax}
+    \begin{description}
+        \item[create new branch] \hfill \\
+            \begin{itemize}
+                \item git branch <branchname>
+                \item git checkout -b <branchname>
+            \end{itemize}
+        \item[delete branch] \hfill \\
+            \begin{itemize}
+                \item git branch -d <branchname>
+            \end{itemize}
+    \end{description}
 \end{frame}
 
 \begin{frame}
@@ -420,9 +448,6 @@
             \gitHEAD
             {above=of master}
             {master}
-            \gitblob
-            {above=of B}
-            {master}
         \end{tikzpicture}
     \end{figure}
 \end{frame}
@@ -430,70 +455,75 @@
 % demonstrate merging of two branches
 \begin{frame}
     \frametitle{merging}
-    \begin{figure}
-        \begin{subfigure}[b]{\textwidth}
-            \centering
-            \begin{tikzpicture}
-                \gitDAG[grow right sep = 2em]
-                {
-                    A -- B -- {
-                        C,
-                        D -- E,
-                    }
-                };
-                \gitbranch
-                {master}
-                {above=of C}
-                {C}
-                \gitbranch
-                {feature X}
-                {above=of E}
-                {E}
-                \gitHEAD
-                {above=of feature X}
-                {feature X}
-            \end{tikzpicture}
-            \subcaption{Before\ldots}
-        \end{subfigure}
+    \begin{figure}[b]{\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \gitDAG[grow right sep = 2em]
+            {
+                A -- B -- {
+                    C,
+                    D -- E,
+                }
+            };
+            \gitbranch
+            {master}
+            {above=of C}
+            {C}
+            \gitbranch
+            {feature X}
+            {above=of E}
+            {E}
+            \gitHEAD
+            {above=of feature X}
+            {feature X}
+        \end{tikzpicture}
+        \caption{Before\ldots}
     \end{figure}
 \end{frame}
 
 \begin{frame}
     \frametitle{merging}
-    \begin{figure}
-        \begin{subfigure}[b]{\textwidth}
-            \centering
-            \begin{tikzpicture}
-                \gitDAG[grow right sep = 2em]
-                {
-                    A -- B -- {
-                        C -- E',
-                        {D -- E -- E'},
-                    }
-                };
-                \gitbranch
-                {master}
-                {above=of E'}
-                {E'}
-                \gitbranch
-                {feature X}
-                {below=of E}
-                {E}
-                \gitHEAD
-                {above=of master}
-                {master}
-            \end{tikzpicture}
-            \subcaption{after: \texttt{git merge feature X}}
-        \end{subfigure}
+    \begin{figure}[b]{\textwidth}
+        \centering
+        \begin{tikzpicture}
+            \gitDAG[grow right sep = 2em]
+            {
+                A -- B -- {
+                    C -- E',
+                    {D -- E -- E'},
+                }
+            };
+            \gitbranch
+            {master}
+            {above=of E'}
+            {E'}
+            \gitbranch
+            {feature X}
+            {below=of E}
+            {E}
+            \gitHEAD
+            {above=of master}
+            {master}
+        \end{tikzpicture}
+        \caption{after: \texttt{git merge feature X}}
     \end{figure}
 \end{frame}
 
 \begin{frame}
     \frametitle{follow the changes}
-    \begin{itemize}
-        \item git diff [-\,-staged]
-        \item git log
-        \item git blame
-    \end{itemize}
+    \begin{description}
+        \item[what:] git diff [-\,-staged]
+        \item[when:] git log
+        \item[who:] git blame
+    \end{description}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Reference}
+    \begin{itemize}
+        \item \url{http://www.git-scm.com/docs} % reference
+        \item \url{http://www.git-scm.com/book/en/v2} % book
+        \item \url{https://sandofsky.com/blog/git-workflow.html} % workflow
+        \item \url{http://ndpsoftware.com/git-cheatsheet.html} % cheatcheet
+    \end{itemize}
+\end{frame}

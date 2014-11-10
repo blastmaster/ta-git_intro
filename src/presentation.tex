@@ -4,7 +4,6 @@
 \usepackage[latin1]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{appendixnumberbeamer}
-\usepackage{subcaption}
 
 \usepackage{hyperref}
 
@@ -13,6 +12,25 @@
 \usetikzlibrary{arrows, backgrounds, positioning, fit, matrix}
 
 \usepackage{gitdags}
+
+\usepackage{listings}
+
+\newcommand\Small{\fontsize{8}{8.0}\selectfont}
+\newcommand*\LSTfont{\Small\ttfamily}
+
+\lstset{
+    basicstyle=\LSTfont,
+    backgroundcolor=\color{white},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    rulecolor=\color{black},
+    tabsize=4,
+    breaklines=true,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{orange}
+}
 
 \title{Introduction into Git}
 %\author{}<++>
