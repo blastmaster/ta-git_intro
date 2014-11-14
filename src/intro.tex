@@ -486,10 +486,10 @@ git clone https://github.com/blastmaster/ta-git_intro.git
         \begin{tikzpicture}
             \gitDAG[grow right sep = 2em]
             {
-                A -- B -- {
-                    C -- E',
-                    {D -- E -- E'},
-                }
+                A -- B --{
+                C,
+                    {D -- E},
+                } -- E'
             };
             \gitbranch
             {master}
