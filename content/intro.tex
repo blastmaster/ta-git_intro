@@ -1,3 +1,43 @@
+\section{Git Basics}
+
+\begin{frame}[fragile]{How it works}
+    \begin{minipage}{\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.8\textwidth]{img/filebased.png}
+            \caption{storing changes to a base file}
+        \end{figure}
+    \end{minipage}
+    \begin{minipage}{\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.8\textwidth]{img/snapshotbased.png}
+            \caption{storing snapshots over time}
+        \end{figure}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}{How it works}
+
+    \begin{itemize}
+        \item most operations are local
+        \item entire history is locally available
+    \end{itemize}
+
+    integrety
+    everything is check-summed before and then referrenced to by that checksum
+    sha1 40 charcter string hex decode
+    git stores everything by hash value of its contents instead of its filename
+
+    git only adds data
+
+    three states
+    - commited
+    - modified
+    - staged
+
+\end{frame}
+
 \defverbatim\setusername{%
     \scriptsize
     \verb+git config --global user.name "Max Mustermann"+
@@ -168,7 +208,7 @@ git clone https://github.com/blastmaster/ta-git_intro.git
     \frametitle{version control is local}
     \begin{figure}[b]
         \centering
-        \includegraphics[width=0.9\textwidth]{../img/three_states.png}
+        \includegraphics[width=0.9\textwidth]{img/three_states.png}
     \end{figure}
     % TODO add reference
     % http://www.git-scm.com/book/en/v2/book/01-introduction/images/areas.png
@@ -178,7 +218,7 @@ git clone https://github.com/blastmaster/ta-git_intro.git
     \frametitle{Lifecycle of our files}
     \begin{figure}[b]
         \centering
-            \includegraphics[width=\textwidth]{../img/file_lifecycle.png}
+            \includegraphics[width=\textwidth]{img/file_lifecycle.png}
     \end{figure}
     % TODO add reference
     % http://www.git-scm.com/book/en/v2/Git-Basics-Recording-Changes-to-the-Repository
@@ -207,7 +247,7 @@ git clone https://github.com/blastmaster/ta-git_intro.git
                 edge [<-, in=0, out=0]  node[whatis, right] {git pull origin master} (remote)
                 edge [->, in=180, out=180] node[whatis, left] {git push origin master} (remote);
         \end{tikzpicture}
-        \includegraphics[width=\textwidth]{../img/show_remote.png}
+        \includegraphics[width=\textwidth]{img/show_remote.png}
     \end{figure}
 \end{frame}
 
