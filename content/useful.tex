@@ -1,0 +1,98 @@
+\section{Advanced Usage}
+
+\defverbatim\mytag{%
+    \scriptsize
+    \verb+git tag -a v0.1 A+
+    \newline
+}
+
+\begin{frame}[fragile]{Tags}
+    Two types of tags
+    - lightweight tags (much like a branch that dosen't change, its just a pointer to
+    a specific commit.)
+    - annotated tags (full stored objects in the git database)
+\end{frame}
+
+\begin{frame}
+    \frametitle{Tags}
+    Tags are like bookmarks on commits.
+    \begin{figure}[b]
+        \centering
+        \begin{tikzpicture}
+            \gitDAG[grow right sep = 2em]
+            {
+                A -- B -- C
+            };
+            \gitbranch
+            {master}
+            {above=of C}
+            {C}
+            \gitHEAD
+            {above=of master}
+            {master}
+        \end{tikzpicture}
+        \caption{lets create a tag for commit A}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Tags}
+    \mytag
+    \begin{figure}[b]
+        \centering
+        \begin{tikzpicture}
+            \gitDAG[grow right sep = 2em]
+            {
+                A -- B -- C
+            };
+            \gitbranch {master}
+            {above=of C}
+            {C}
+            \gittag
+            [v0p1]
+            {v0.1}
+            {above=of A}
+            {A}
+            \gitHEAD
+            {above=of master}
+            {master}
+        \end{tikzpicture}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Tags Syntax}
+    \textbf{Create tag:}
+    \begin{lstlisting}
+    git tag -a <commitid>
+    \end{lstlisting}
+    \textbf{Delete tag:}
+    \begin{lstlisting}
+    git tag -d <tagname>
+    \end{lstlisting}
+    \textbf{Filter tag:}
+    \begin{lstlisting}
+    git tag -l <pattern>
+    \end{lstlisting}
+    \textbf{Sign tag:}
+    \begin{lstlisting}
+    git tag -s <tagname>
+    \end{lstlisting}
+    \textbf{Showing a tag:}
+    \begin{lstlisting}
+    git show v1.4
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Sharing Tags}
+    \textbf{You need to explicitly transfer tags to remote.}
+    \begin{lstlisting}
+        git push origin <tagname>
+    \end{lstlisting}
+    or:
+    \begin{lstlisting}
+        git push origin --tags
+    \end{lstlisting}
+    \textbf{Checking out Tags:}
+    \begin{lstlisting}
+        git checkout -b <branchname> <tagname>
+    \end{lstlisting}
+\end{frame}

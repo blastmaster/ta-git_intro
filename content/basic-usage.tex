@@ -1,0 +1,464 @@
+\section{Git local}
+
+\begin{frame}{Recording Changes}
+    \emph{Each file in your working directory can be in one of two states:
+        tracked or untracked.}
+
+    \begin{figure}
+        \centering
+            \includegraphics[width=\textwidth]{img/file_lifecycle.png}
+    \end{figure}
+
+\end{frame}
+
+\begin{frame}[fragile]{Git Terminology}
+    \begin{figure}[b]
+        \centering
+        \begin{tikzpicture}
+            \tikzstyle{state} = [ draw,
+                node distance = 1.4em,
+                drop shadow = {opacity=0.15},
+                font = \fontfamily{lmtt}\selectfont\small,
+                shape = rectangle,
+                %rounded corners = .5em,
+                minimum width = 7em,
+                minimum height = 2em,
+                text opacity = 0.75,
+                semithick ]
+            \tikzstyle{whatis} = [
+                node distance = 1.4em,
+                left,
+                font = \fontfamily{lmtt}\selectfont\tiny]
+            \node[state] (remote) {remote};
+            \node[state] (repository) [below=of remote] {Local Repository};
+            \node[state] (index) [below=of repository] {Staging Area};
+            \node[state] (stash) [below=of index] {Stash};
+            \node[state] (tree)  [below=of stash] {Working Directory};
+
+            \node[whatis, left] at (remote.west) {Repository on the internet or network.};
+            \node[whatis, left] at (repository.west) {Local repository that contains complete history.};
+            \node[whatis, left] at (index.west) {Snapshot of the working tree for next commit.};
+            \node[whatis, left] at (stash.west) {A place to hide modification if you need a clean workspace.};
+            \node[whatis, left] at (tree.west) {The direcotries and files on your filesystem.};
+        \end{tikzpicture}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Staging files}
+    \begin{figure}[b]
+        \centering
+        \begin{tikzpicture}
+            \tikzstyle{state} = [ draw,
+                node distance = 1.4em,
+                drop shadow = {opacity=0.15},
+                font = \fontfamily{lmtt}\selectfont\small,
+                shape = rectangle,
+                rounded corners = .5em,
+                minimum width = 7em,
+                minimum height = 2em,
+                text opacity = 0.75,
+                semithick ]
+            \tikzstyle{whatis} = [
+                node distance = 1.4em,
+                font = \fontfamily{lmtt}\selectfont\tiny]
+            \node[state] (index) {Staging Area};
+            \node[state] (tree)  [below=of index] {Working Directory}
+                edge [->, out=0, in=0] node[whatis, right] {git add <filename>} (index)
+                edge [<-, out=180, in=180] node[whatis, left] {git reset HEAD <filename>} (index);
+        \end{tikzpicture}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Using the Stash}
+    \begin{figure}[b]
+        \centering
+        \begin{tikzpicture}
+            \tikzstyle{state} = [ draw,
+                node distance = 1.4em,
+                drop shadow = {opacity=0.15},
+                font = \fontfamily{lmtt}\selectfont\small,
+                shape = rectangle,
+                rounded corners = .5em,
+                minimum width = 7em,
+                minimum height = 2em,
+                text opacity = 0.75,
+                semithick ]
+            \tikzstyle{whatis} = [
+                node distance = 1.4em,
+                font = \fontfamily{lmtt}\selectfont\tiny]
+            \node[state] (stash) [below=of index] {Stash};
+            \node[state] (tree)  [below=of stash] {Working Directory}
+                edge [->, out=0, in=0] node [whatis, right] {git stash} (stash)
+                edge [<-, out=180, in=180] node [whatis, left] {git apply} (stash);
+        \end{tikzpicture}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{commiting changes}
+    \begin{figure}[b]
+        \centering
+        \begin{tikzpicture}
+            \tikzstyle{state} = [ draw,
+                node distance = 1.4em,
+                drop shadow = {opacity=0.15},
+                font = \fontfamily{lmtt}\selectfont\small,
+                shape = rectangle,
+                rounded corners = .5em,
+                minimum width = 7em,
+                minimum height = 2em,
+                text opacity = 0.75,
+                semithick ]
+            \tikzstyle{whatis} = [
+                node distance = 1.4em,
+                font = \fontfamily{lmtt}\selectfont\tiny]
+            \node[state] (repository)  {local repository};
+            \node[state] (index) [below=of repository] {Staging Area}
+                edge [->, out=0, in=0] node [whatis, right] {git commit} (repository);
+            \node[state] (tree)  [below=of stash] {Working Directory}
+                edge [<-, out=180, in=180] node [whatis, left] {git checkout <commitid>} (repository)
+                edge [->, out=0, in=0] node[whatis, right] {git add <filename>} (index);
+        \end{tikzpicture}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Undoing things}
+
+    \textbf{Unstating a Staged File:}
+    \begin{lstlisting}
+        git restet HEAD <file>
+    \end{lstlisting}
+    \textbf{Unmodifying a Modified File:}
+    \begin{lstlisting}
+        git checkout -- <file>
+    \end{lstlisting}
+
+\end{frame}
+
+\section{Remotes}
+
+\begin{frame}[fragile]{Working Remotes}
+    \begin{figure}[b]
+        \centering
+        \begin{tikzpicture}
+            \tikzstyle{state} = [ draw,
+                node distance = 1.4em,
+                drop shadow = {opacity=0.15},
+                font = \fontfamily{lmtt}\selectfont\small,
+                shape = rectangle,
+                rounded corners = .5em,
+                minimum width = 7em,
+                minimum height = 2em,
+                text opacity = 0.75,
+            semithick ]
+            \tikzstyle{whatis} = [
+                node distance = 1.4em,
+                font = \fontfamily{lmtt}\selectfont\tiny]
+                \node[state] (remote) {remote: origin};
+                \node[state] (working) [below=of remote] {local repository}
+                edge [<-, in=0, out=0]  node[whatis, right] {git pull origin master} (remote)
+                edge [->, in=180, out=180] node[whatis, left] {git push origin master} (remote);
+        \end{tikzpicture}
+        \includegraphics[width=\textwidth]{img/show_remote.png}
+    \end{figure}
+\end{frame}
+
+
+\defverbatim\myadd{%
+    \scriptsize
+    \verb+git remote add github git@github.com:username/repo.git+
+    \newline
+}
+
+\begin{frame}[fragile]{Working with Remotes}
+    \myadd
+    \begin{figure}
+        \centering
+        \begin{tikzpicture}
+            \tikzstyle{state} = [ draw,
+                node distance = 1.4em,
+                drop shadow = {opacity=0.15},
+                font = \fontfamily{lmtt}\selectfont\small,
+                shape = rectangle,
+                rounded corners = .5em,
+                minimum width = 7em,
+                minimum height = 2em,
+                text opacity = 0.75,
+            semithick ]
+            \tikzstyle{whatis} = [
+                node distance = 2.4em,
+                font = \fontfamily{lmtt}\selectfont\tiny]
+                \node[state] (remote) {remote: origin};
+                \node[state] (remote2) [right=of remote] {remote: github};
+                \node[state] (working) [below=of remote, xshift=1.25cm] {local copy}
+                edge [<->, in=180, out=180] node[whatis, left, align=center] {
+                    git pull origin master \\
+                git push origin master} (remote)
+                edge [<->, in=0, out=0] node[whatis, right, align=center] {git pull github master \\
+                git push github master} (remote2);
+        \end{tikzpicture}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Working with Remotes}
+    \textbf{Showing your remotes:}
+    \begin{lstlisting}
+        git remote -v
+    \end{lstlisting}
+    \textbf{Showing remote information:}
+    \begin{lstlisting}
+        git remote show <remote>
+    \end{lstlisting}
+    \textbf{Rename a remote:}
+    \begin{lstlisting}
+        git remote rename <oldname> <newname>
+    \end{lstlisting}
+    \textbf{Remove a remote:}
+    \begin{lstlisting}
+        git remote rm <remote>
+    \end{lstlisting}
+
+\end{frame}
+
+
+\section{Branches}
+
+\begin{frame}[fragile]{Branching}
+    \begin{figure}[b]
+        \centering
+        \begin{tikzpicture}
+            \gitDAG[grow right sep = 2em]
+            {
+                A -- B -- C
+            };
+            \gitbranch {master}
+            {above=of C}
+            {C}
+            \gittag
+            [v0p1]
+            {v0.1}
+            {above=of A}
+            {A}
+            \gitHEAD
+            {above=of master}
+            {master}
+        \end{tikzpicture}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Branching}
+    \begin{figure}[b]
+        \centering
+        \begin{tikzpicture}
+            \gitDAG[grow right sep = 2em]
+            {
+                A -- B -- {
+                    C,
+                    D -- E,
+                }
+
+            };
+            \gitbranch {master}
+            {above=of C}
+            {C}
+            \gittag
+            [v0p1]
+            {v0.1}
+            {above=of A}
+            {A}
+            \gitbranch
+            {feature X}
+            {above=of E}
+            {E}
+            \gitHEAD
+            {above=of master}
+            {master}
+        \end{tikzpicture}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Branch Syntax}
+    \textbf{create new branch:}
+        \begin{lstlisting}
+            git branch <branchname>
+        \end{lstlisting}
+        \begin{lstlisting}
+            git checkout -b <branchname>
+        \end{lstlisting}
+    \textbf{delete branch:}
+        \begin{lstlisting}
+            git branch -d <branchname>
+        \end{lstlisting}
+    \textbf{list local branches:}
+        \begin{lstlisting}
+            git branch
+            git branch --merged
+            git branch --no-merged
+        \end{lstlisting}
+\end{frame}
+
+% demonstrate merging of two branches
+\begin{frame}[fragile]{Merging}
+    \begin{figure}[b]
+        \centering
+        \begin{tikzpicture}
+            \gitDAG[grow right sep = 2em]
+            {
+                A -- B -- {
+                    C,
+                    D -- E,
+                }
+            };
+            \gitbranch
+            {master}
+            {above=of C}
+            {C}
+            \gitbranch
+            {feature X}
+            {above=of E}
+            {E}
+            \gitHEAD
+            {above=of feature X}
+            {feature X}
+        \end{tikzpicture}
+        \caption{Before\ldots}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Merging}
+    \begin{figure}[b]
+        \centering
+        \begin{tikzpicture}
+            \gitDAG[grow right sep = 2em]
+            {
+                A -- B --{
+                C,
+                    {D -- E},
+                } -- E'
+            };
+            \gitbranch
+            {master}
+            {above=of E'}
+            {E'}
+            \gitbranch
+            {feature X}
+            {below=of E}
+            {E}
+            \gitHEAD
+            {above=of master}
+            {master}
+        \end{tikzpicture}
+        \caption{after: \texttt{git merge feature X}}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Rebasing}
+    \begin{figure}
+        \centering
+        \begin{tikzpicture}
+            \gitDAG[grow right sep = 2em]
+            {
+                A -- B -- {
+                    C,
+                    D -- E,
+                }
+            };
+            \gittag
+            [v0p1]
+            {v0.1}
+            {above=of A}
+            {A}
+            \gitremotebranch
+            [origmaster]
+            {origin/master}
+            {above=of C}
+            {C}
+            \gitbranch
+            {master}
+            {above=of E}
+            {E}
+            \gitHEAD
+            {above=of master}
+            {master}
+        \end{tikzpicture}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Rebasing}
+    \begin{figure}
+        \centering
+        \begin{tikzpicture}
+            \gitDAG[grow right sep = 2em] {
+                A -- B -- {
+                    C -- D' -- E',
+                    {[nodes=unreachable] D -- E},
+                }
+            };
+            \gittag
+            [v0p1]
+            {v0.1}
+            {above=of A}
+            {A}
+            \gitremotebranch
+            [origmaster]
+            {origin/master}
+            {above=of C}
+            {C}
+            \gitbranch
+            {master}
+            {above=of E'}
+            {E'}
+            \gitHEAD
+            {above=of master}
+            {master}
+        \end{tikzpicture}
+    \end{figure}
+\end{frame}
+
+
+
+%\begin{frame}[fragile]{Working with the log}
+    %\centering
+    %\adjustbox{max height=\dimexpr\textheight-5.5cm\relax,
+               %max width=\textwidth}{
+    %\begin{tabular}{ll}
+        %\textbf{Option} & \textbf{Description} \\ \hline
+        %\textit{-(n)} & Show only the last $n$ commits\\ \hline
+        %\textit{-\,-since, -\,-after} & Limit the commits to those made after the specified date.\\ \hline
+        %\textit{-\,-unitl, -\,-before} & Limit the commit to those made before the specified date.\\ \hline
+        %\textit{-\,-author} & Only show commits in which the author entry matches specified string.\\ \hline
+        %\textit{-\,-committer} & Only show commits in which the committer entry matches the specified string.\\ \hline
+        %\textit{-\,-grep} & Only show commits with a commit message containing the string.\\ \hline
+        %\textit{-S}  & Only show commits adding or removing code matching the string.\\ \hline
+    %\end{tabular}
+    %}
+%\end{frame}
+
+
+\begin{frame}
+    \frametitle{Reference and Resources}
+    \begin{itemize}
+        \item \url{http://www.git-scm.com/docs} % reference
+        \item \url{http://www.git-scm.com/book/en/v2} % book
+        \item \url{https://git.wiki.kernel.org} % kernel wiki
+        \item \url{https://sandofsky.com/blog/git-workflow.html} % workflow
+        \item \url{http://ndpsoftware.com/git-cheatsheet.html} % cheatcheet
+        \item \url{http://yasoob.me/learn-git/} % simple overview
+        \item \url{http://learngitbranching.js.org} % online demo to learn branching
+        \item \url{https://try.github.io/levels/1/challenges/1} % github online demo
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Tools}
+
+    Full Clientso
+    tig
+    gitk
+
+    https://www.sourcetreeapp.com/
+
+
+    Merge / Diff Tools
+    meld http://meldmerge.org/
+
+\end{frame}

@@ -1,81 +1,75 @@
+\section{Pitfalls}
+
 \begin{frame}[fragile]{Oh shit, I did something terribly wrong, please tell me git has a magic time machine!?!}
     \begin{figure}
-        \begin{lstlisting}
-            git reflog
-            # you will see a list of every thing you've done in git, across all branches!
-            # each one has an index HEAD@{index}
-            # find the one before you broke everything
-            git reset HEAD@{index}
-            # magic time machine
-        \end{lstlisting}
+    \begin{lstlisting}
+        git reflog
+        # you will see a list of every thing you've done in git, across all branches!
+        # each one has an index HEAD@{index}
+        # find the one before you broke everything
+        git reset HEAD@{index}
+        # magic time machine
+    \end{lstlisting}
     \end{figure}
 \end{frame}
 
 \begin{frame}[fragile]{Oh shit, I committed and immediately realized I need to make one small change!}
     \begin{figure}
-        \begin{lstlisting}
-            # make your change
-            git add . # or add individual files
-            git commit --amend
-            # follow prompts to change or keep the commit message
-            # now your last commit contains that change!
-        \end{lstlisting}
+    \begin{lstlisting}
+        # make your change
+        git add . # or add individual files
+        git commit --amend
+        # follow prompts to change or keep the commit message
+        # now your last commit contains that change!
+    \end{lstlisting}
     \end{figure}
 \end{frame}
 
 \begin{frame}[fragile]{Oh shit, I need to change the message on my last commit!}
     \begin{figure}
-        \begin{lstlisting}
-            git commit --amend
-            # follow prompts to change the commit message
-        \end{lstlisting}
+    \begin{lstlisting}
+        git commit --amend
+        # follow prompts to change the commit message
+    \end{lstlisting}
     \end{figure}
 \end{frame}
 
 \begin{frame}[fragile]{Oh shit, I accidentally committed something to master that should have been on a brand new branch!}
     \begin{figure}
-        \begin{lstlisting}
-            # create a new branch from the current state of master
-            git branch some-new-branch-name
-            # remove the commit from the master branch
-            git reset HEAD~ --hard
-            git checkout some-new-branch-name
-            # your commit lives in this branch now :)
-        \end{lstlisting}
+    \begin{lstlisting}
+        # create a new branch from the current state of master
+        git branch some-new-branch-name
+        # remove the commit from the master branch
+        git reset HEAD~ --hard
+        git checkout some-new-branch-name
+        # your commit lives in this branch now :)
+    \end{lstlisting}
     \end{figure}
 \end{frame}
 
 \begin{frame}[fragile]{Oh shit, I accidentally committed to the wrong branch!}
     \begin{figure}
-        \begin{lstlisting}
-            # undo the last commit, but leave the changes available
-            git reset HEAD~ --soft
-            git stash
-            # move to the correct branch
-            git checkout name-of-the-correct-branch
-            git stash pop
-            git add . # or add individual files
-            git commit -m "your message here"
-            # now your changes are on the correct branch
+    \begin{lstlisting}
+        # undo the last commit, but leave the changes available
+        git reset HEAD~ --soft
+        git stash
+        # move to the correct branch
+        git checkout name-of-the-correct-branch
+        git stash pop
+        git add . # or add individual files
+        git commit -m "your message here"
+        # now your changes are on the correct branch
         \end{lstlisting}
-    \end{figure}
-\end{frame}
-
-\begin{frame}[fragile]{Oh shit, I tried to run a diff but nothing happened?!}
-    \begin{figure}
-        \begin{lstlisting}
-            git diff --staged
-        \end{lstlisting}
-    \end{figure}
+\end{figure}
 \end{frame}
 
 \begin{frame}[fragile]{Fuck this noise, I give up.}
     \begin{figure}
         \begin{lstlisting}
-            cd ..
-            sudo rm -r fucking-git-repo-dir
-            git clone https://some.github.url/fucking-git-repo-dir.git
-            cd fucking-git-repo-dir
+        cd ..
+        rm -rf git-repo-dir
+        git clone https://some.github.url/git-repo-dir.git
+        cd git-repo-dir
         \end{lstlisting}
     \end{figure}
 \end{frame}
