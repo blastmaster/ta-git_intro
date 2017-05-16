@@ -1,59 +1,66 @@
 \section{Git Introduction}
 
-\begin{frame}{Installing git}
+\begin{frame}[fragile]{Installing git}
 
+    \textbf{Debian:}
+    \begin{lstlisting}
     apt install git
+    \end{lstlisting}
 
+    \textbf{Arch Linux:}
+    \begin{lstlisting}
     pacman -S git
+    \end{lstlisting}
 
+    \textbf{Fedora:}
+    \begin{lstlisting}
     yum install git
+    \end{lstlisting}
 
     \begin{description}
-        \item{For Linux:} http://git-scm.com/download/linux
-        \item{For Mac:} http://git-scm.com/download/mac
-        \item{For Windows:} http://git-scm.com/download/win
+        \item{For Linux:} \url{http://git-scm.com/download/linux}
+        \item{For Mac:} \url{http://git-scm.com/download/mac}
+        \item{For Windows:} \url{http://git-scm.com/download/win}
     \end{description}
 
 \end{frame}
 
+\begin{frame}[fragile]{How it NOT works}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{img/snapshotbased.png}
+        \caption{storing snapshots over time}
+    \end{figure}
+\end{frame}
+
 \begin{frame}[fragile]{How it works}
-    \begin{minipage}{\textwidth}
-        \begin{figure}
-            \centering
-            \includegraphics[width=0.8\textwidth]{img/filebased.png}
-            \caption{storing changes to a base file}
-        \end{figure}
-    \end{minipage}
-    \begin{minipage}{\textwidth}
-        \begin{figure}
-            \centering
-            \includegraphics[width=0.8\textwidth]{img/snapshotbased.png}
-            \caption{storing snapshots over time}
-        \end{figure}
-    \end{minipage}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{img/snapshotbased.png}
+        \caption{storing snapshots over time}
+    \end{figure}
 \end{frame}
+%\begin{frame}{How it works}
 
-\begin{frame}{How it works}
+    %\begin{itemize}
+        %\item most operations are local
+        %\item entire history is locally available
+    %\end{itemize}
 
-    \begin{itemize}
-        \item most operations are local
-        \item entire history is locally available
-    \end{itemize}
+    %integrety
+    %everything is check-summed before and then referrenced to by that checksum
+    %sha1 40 charcter string hex decode
+    %git stores everything by hash value of its contents instead of its filename
 
-    integrety
-    everything is check-summed before and then referrenced to by that checksum
-    sha1 40 charcter string hex decode
-    git stores everything by hash value of its contents instead of its filename
+    %git only adds data
 
-    git only adds data
+    %three states
+    %- commited
+    %- modified
+    %- staged
+    %- (untracked)
 
-    three states
-    - commited
-    - modified
-    - staged
-    - (untracked)
-
-\end{frame}
+%\end{frame}
 
 \begin{frame}{What is a git repository?}
 
@@ -86,13 +93,15 @@
 
 \begin{frame}{Configure Git}
 
-    Place where the git configuration can live:
+    \emph{Place where the git configuration can live:}
+    \vspace{1cm}
+
     % TODO: take a table for that
     \begin{itemize}
-            \item \textit{/etc/gitconfig} system wide configuration
-                \textit{--system}
-            \item \textit{~/.gitconfig} or \textit{~/.config/gitconfig}  user wide configuration \textit{--global}
-            \item \textit{.git/config} repository specific configuration
+            \item \textbf{/etc/gitconfig} system wide configuration
+                \textit{-\,-system}
+            \item \textbf{~/.gitconfig} or \textbf{~/.config/gitconfig}  user wide configuration \textit{-\,-global}
+            \item \textbf{.git/config} repository specific configuration
     \end{itemize}
 
 \end{frame}
@@ -130,7 +139,7 @@
     \end{lstlisting}
     \textbf{Your editor:}
     \begin{lstlisting}
-        git config --global core.editor vim
+        git config --global core.editor "vim"
     \end{lstlisting}
 \end{frame}
 

@@ -6,13 +6,6 @@
     \newline
 }
 
-\begin{frame}[fragile]{Tags}
-    Two types of tags
-    - lightweight tags (much like a branch that dosen't change, its just a pointer to
-    a specific commit.)
-    - annotated tags (full stored objects in the git database)
-\end{frame}
-
 \begin{frame}
     \frametitle{Tags}
     Tags are like bookmarks on commits.
@@ -145,9 +138,9 @@
     \vspace{1cm}
 
     \begin{enumerate}
-        \item Delete the relevant line from the .gitmodules file.
-        \item Delete the relevant section from .git/config.
-        \item Run git rm -\,-cached path\_to\_submodule (no trailing slash).
+        \item Delete the relevant line from the \textbf{.gitmodules} file.
+        \item Delete the relevant section from \textbf{.git/config}.
+        \item Run \textit{git rm -\,-cached path\_to\_submodule} (no trailing slash).
         \item Commit the superproject.
         \item Delete the now untracked submodule files.
     \end{enumerate}

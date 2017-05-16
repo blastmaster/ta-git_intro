@@ -53,7 +53,7 @@
                 drop shadow = {opacity=0.15},
                 font = \fontfamily{lmtt}\selectfont\small,
                 shape = rectangle,
-                rounded corners = .5em,
+                %rounded corners = .5em,
                 minimum width = 7em,
                 minimum height = 2em,
                 text opacity = 0.75,
@@ -78,7 +78,7 @@
                 drop shadow = {opacity=0.15},
                 font = \fontfamily{lmtt}\selectfont\small,
                 shape = rectangle,
-                rounded corners = .5em,
+                %rounded corners = .5em,
                 minimum width = 7em,
                 minimum height = 2em,
                 text opacity = 0.75,
@@ -89,12 +89,12 @@
             \node[state] (stash) [below=of index] {Stash};
             \node[state] (tree)  [below=of stash] {Working Directory}
                 edge [->, out=0, in=0] node [whatis, right] {git stash} (stash)
-                edge [<-, out=180, in=180] node [whatis, left] {git apply} (stash);
+                edge [<-, out=180, in=180] node [whatis, left] {git stash apply} (stash);
         \end{tikzpicture}
     \end{figure}
 \end{frame}
 
-\begin{frame}[fragile]{commiting changes}
+\begin{frame}[fragile]{Commit Changes}
     \begin{figure}[b]
         \centering
         \begin{tikzpicture}
@@ -103,7 +103,7 @@
                 drop shadow = {opacity=0.15},
                 font = \fontfamily{lmtt}\selectfont\small,
                 shape = rectangle,
-                rounded corners = .5em,
+                %rounded corners = .5em,
                 minimum width = 7em,
                 minimum height = 2em,
                 text opacity = 0.75,
@@ -125,7 +125,7 @@
 
     \textbf{Unstating a Staged File:}
     \begin{lstlisting}
-        git restet HEAD <file>
+        git reset HEAD <file>
     \end{lstlisting}
     \textbf{Unmodifying a Modified File:}
     \begin{lstlisting}
@@ -145,7 +145,7 @@
                 drop shadow = {opacity=0.15},
                 font = \fontfamily{lmtt}\selectfont\small,
                 shape = rectangle,
-                rounded corners = .5em,
+                %rounded corners = .5em,
                 minimum width = 7em,
                 minimum height = 2em,
                 text opacity = 0.75,
@@ -158,7 +158,6 @@
                 edge [<-, in=0, out=0]  node[whatis, right] {git pull origin master} (remote)
                 edge [->, in=180, out=180] node[whatis, left] {git push origin master} (remote);
         \end{tikzpicture}
-        \includegraphics[width=\textwidth]{img/show_remote.png}
     \end{figure}
 \end{frame}
 
@@ -179,7 +178,7 @@
                 drop shadow = {opacity=0.15},
                 font = \fontfamily{lmtt}\selectfont\small,
                 shape = rectangle,
-                rounded corners = .5em,
+                %rounded corners = .5em,
                 minimum width = 7em,
                 minimum height = 2em,
                 text opacity = 0.75,
@@ -439,6 +438,7 @@
     \begin{itemize}
         \item \url{http://www.git-scm.com/docs} % reference
         \item \url{http://www.git-scm.com/book/en/v2} % book
+        \item \url{http://ohshitgit.com/} % oh shit git see pitfalls.tex
         \item \url{https://git.wiki.kernel.org} % kernel wiki
         \item \url{https://sandofsky.com/blog/git-workflow.html} % workflow
         \item \url{http://ndpsoftware.com/git-cheatsheet.html} % cheatcheet
@@ -451,14 +451,16 @@
 
 \begin{frame}{Tools}
 
-    Full Clientso
-    tig
-    gitk
+    \textbf{Full Clients:}
+    \begin{description}
+        \item[tig:] \url{https://jonas.github.io/tig/}
+        \item[gitk:] \url{https://git-scm.com/docs/gitk}
+    \end{description}
 
-    https://www.sourcetreeapp.com/
-
-
-    Merge / Diff Tools
-    meld http://meldmerge.org/
+    \textbf{Merge / Diff Tools:}
+    \begin{description}
+        \item[meld:] \url{http://meldmerge.org/}
+        \item[kompare:] \url{https://www.kde.org/applications/development/kompare}
+    \end{description}
 
 \end{frame}
