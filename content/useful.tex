@@ -31,7 +31,6 @@
             {above=of master}
             {master}
         \end{tikzpicture}
-        \caption{lets create a tag for commit A}
     \end{figure}
 \end{frame}
 
@@ -95,4 +94,61 @@
     \begin{lstlisting}
         git checkout -b <branchname> <tagname>
     \end{lstlisting}
+\end{frame}
+
+
+% Submodule
+
+\begin{frame}[fragile]{Submodules}
+    \emph{Submodules allow you to include or embed one or more repositories as a
+        sub-folder inside another repository.}
+    \vspace{1cm}
+
+
+    \textbf{Adding a new submodule:}
+    \begin{lstlisting}
+    git submodule add <GIT_URL> <PATH>
+    \end{lstlisting}
+    \textbf{Update a submodule:}
+    \begin{lstlisting}
+    git submodule update --remote
+    \end{lstlisting}
+
+    The \textbf{.gitmodules} file stores the mapping between the projects url
+    and the local subdirectory you've pulled it into.
+
+\end{frame}
+
+\begin{frame}[fragile]{Submodules}
+    \emph{Cloning a Repository with Submodules.}
+    \vspace{1cm}
+
+    \begin{lstlisting}
+    git clone <GIT_URL>
+    git submodule init
+    git submodule update --recursive
+    \end{lstlisting}
+    or shorter:
+    \begin{lstlisting}
+    git clone <GIT_URL>
+    git submodule update --init --recursive
+    \end{lstlisting}
+    or even shorter:
+    \begin{lstlisting}
+    git clone --recursive <GIT_URL>
+    \end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]{Submodules}
+    \emph{To remove a submodule you need to:}
+    \vspace{1cm}
+
+    \begin{enumerate}
+        \item Delete the relevant line from the .gitmodules file.
+        \item Delete the relevant section from .git/config.
+        \item Run git rm -\,-cached path\_to\_submodule (no trailing slash).
+        \item Commit the superproject.
+        \item Delete the now untracked submodule files.
+    \end{enumerate}
 \end{frame}
