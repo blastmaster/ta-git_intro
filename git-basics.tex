@@ -13,23 +13,29 @@
 \usetikzlibrary{arrows, backgrounds, positioning, fit, matrix}
 
 \usepackage{gitdags}
-
+\usepackage{color}
 \usepackage{listings}
 
 \newcommand\Small{\fontsize{8}{8.0}\selectfont}
 \newcommand*\LSTfont{\Small\ttfamily}
 
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{gray}{0.95}
+
 \lstset{
+    language=sh,
     basicstyle=\LSTfont,
-    backgroundcolor=\color{white},
+    backgroundcolor=\color{mygray},
     showspaces=false,
     showstringspaces=false,
     showtabs=false,
+    frame=single,
     rulecolor=\color{black},
     tabsize=4,
     breaklines=true,
     keywordstyle=\color{blue},
-    commentstyle=\color{gray},
+    commentstyle=\color{darkgray},
     stringstyle=\color{orange}
 }
 
