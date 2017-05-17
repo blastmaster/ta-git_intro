@@ -232,10 +232,6 @@
             \gitbranch {master}
             {above=of C}
             {C}
-            \gittag
-            [v0p1]
-            {v0.1}
-            {above=of A}
             {A}
             \gitHEAD
             {above=of master}
@@ -259,10 +255,6 @@
             \gitbranch {master}
             {above=of C}
             {C}
-            \gittag
-            [v0p1]
-            {v0.1}
-            {above=of A}
             {A}
             \gitbranch
             {feature X}
@@ -315,9 +307,10 @@
             {feature X}
             {above=of E}
             {E}
-            \gitHEAD
-            {above=of feature X}
             {feature X}
+            \gitHEAD
+            {above=of master}
+            {master}
         \end{tikzpicture}
         \caption{Before\ldots}
     \end{figure}
@@ -361,11 +354,6 @@
                     D -- E,
                 }
             };
-            \gittag
-            [v0p1]
-            {v0.1}
-            {above=of A}
-            {A}
             \gitremotebranch
             [origmaster]
             {origin/master}
@@ -392,11 +380,6 @@
                     {[nodes=unreachable] D -- E},
                 }
             };
-            \gittag
-            [v0p1]
-            {v0.1}
-            {above=of A}
-            {A}
             \gitremotebranch
             [origmaster]
             {origin/master}

@@ -28,8 +28,8 @@
 \begin{frame}[fragile]{How it NOT works}
     \begin{figure}
         \centering
-        \includegraphics[width=0.8\textwidth]{img/snapshotbased.png}
-        \caption{storing snapshots over time}
+        \includegraphics[width=0.8\textwidth]{img/filebased.png}
+        \caption{storing changes to a base file}
     \end{figure}
 \end{frame}
 
@@ -40,27 +40,6 @@
         \caption{storing snapshots over time}
     \end{figure}
 \end{frame}
-%\begin{frame}{How it works}
-
-    %\begin{itemize}
-        %\item most operations are local
-        %\item entire history is locally available
-    %\end{itemize}
-
-    %integrety
-    %everything is check-summed before and then referrenced to by that checksum
-    %sha1 40 charcter string hex decode
-    %git stores everything by hash value of its contents instead of its filename
-
-    %git only adds data
-
-    %three states
-    %- commited
-    %- modified
-    %- staged
-    %- (untracked)
-
-%\end{frame}
 
 \begin{frame}{What is a git repository?}
 
@@ -100,7 +79,7 @@
     \begin{itemize}
             \item \textbf{/etc/gitconfig} system wide configuration
                 \textit{-\,-system}
-            \item \textbf{~/.gitconfig} or \textbf{~/.config/gitconfig}  user wide configuration \textit{-\,-global}
+            \item \textbf{$\sim$/.gitconfig} or \textbf{$\sim$/.config/gitconfig}  user wide configuration \textit{-\,-global}
             \item \textbf{.git/config} repository specific configuration
     \end{itemize}
 
@@ -188,7 +167,6 @@ git clone -b <branchname> <GIT_URL>
     \end{itemize}
 
     \vspace{1em}
-    %TODO: github maintains a large amount of .gitignore files
     Example:\\
     \url{https://github.com/github/gitignore}
 
