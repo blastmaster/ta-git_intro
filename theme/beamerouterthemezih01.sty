@@ -1,0 +1,139 @@
+%
+%  A Beamer Theme Which Looks A Bit Like ZIH Presentation Template
+%
+%  Matthias.Lieber@tu-dresden.de
+%  thomas.william@zih.tu-dresden.de
+
+%
+%  Setup stuff:
+%
+
+\definecolor{darkblue}{rgb}{0.04, 0.16, 0.32}
+
+% color for footer and navigation header (if activated, see below)
+\setbeamercolor*{palette primary}{fg=black,bg=white}
+
+% color for subsection navigation (if activated, see below)
+\setbeamercolor*{palette secondary}{fg=white,bg=darkblue}
+
+% Add the typical beamer navigation stuff in the head?
+\newif\ifbeamer@theme@navigation
+\beamer@theme@navigationfalse
+%\beamer@theme@navigationtrue
+
+% Include subsection names in the head navigation?
+\newif\ifbeamer@theme@subsection
+\beamer@theme@subsectionfalse
+%\beamer@theme@subsectiontrue
+
+% define left and right logo
+\pgfdeclareimage[width=5.2em,interpolate=true]{logo-l}{theme/logo/tu_logo}
+\pgfdeclareimage[width=5.2em,interpolate=true]{logo-r}{theme/logo/zih_logo_ml}
+
+% we use tikz for the color gradient
+\usepackage{tikz}
+
+\setbeamercolor{subsection in head/foot}{parent=palette secondary}
+\setbeamercolor{section in head/foot}{parent=palette primary}
+\setbeamercolor{author in head/foot}{parent=palette primary}
+
+
+\definecolor{zihorange}{rgb}{0.898, 0.420, 0.125}
+
+
+\defbeamertemplate*{footline}{zih01 theme}
+{%
+  \begin{beamercolorbox}[colsep=1.5pt]{lower separation line head}
+    \hfill\rule{0cm}{0.7cm}
+  \end{beamercolorbox}
+  % fancy color gradient, see
+  % /usr/share/texmf/doc/generic/pgf/version-for-pdftex/en/pgfmanual.pdf
+  \begin{tikzpicture}[x=\paperwidth,y=0.5pt]
+    \shade[left color=white,right color=white] (0.0,0) rectangle (0.2,1);
+    \shade[left color=darkblue,right color=zihorange] (0.2,0) rectangle (0.8,1);
+%    \shade[left color=zihorange,right color=zihorange] (0.819,0) rectangle
+% (0.978,1);
+  \end{tikzpicture}
+  % logo, page number, yet anoter logo
+  \begin{beamercolorbox}[ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]{author in head/foot}%
+    \pgfuseimage{logo-l}
+    \hfill%
+    %\leavevmode{\usebeamerfont{author in head/foot}\insertshortauthor}%
+    \leavevmode{\usebeamerfont{author in head/foot}\insertframenumber/\inserttotalframenumber}%
+    \hfill%
+    \pgfuseimage{logo-r}
+  \end{beamercolorbox}%
+}
+
+
+\DeclareOptionBeamer{footline}{\csname beamer@theme@footline@#1\endcsname}
+\DeclareOptionBeamer{subsection}[true]{\csname beamer@theme@subsection#1\endcsname}
+\ProcessOptionsBeamer
+
+
+\mode<presentation>
+
+                                % Head
+\defbeamertemplate*{headline}{zih01 theme}
+{%
+  \begin{beamercolorbox}[colsep=1.5pt]{upper separation line head}
+  \end{beamercolorbox}
+  % Navigation
+  \ifbeamer@theme@navigation
+  \begin{beamercolorbox}{section in head/foot}
+    \vskip2pt\insertnavigation{\paperwidth}\vskip2pt
+  \end{beamercolorbox}%
+  \fi%
+  % Section > Subsection
+  \ifbeamer@theme@subsection%
+    \begin{beamercolorbox}[colsep=1.5pt]{middle separation line head}
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]{subsection in head/foot}
+      \usebeamerfont{subsection in head/foot}\insertsectionhead\  \hfill  \insertsubsectionhead 
+    \end{beamercolorbox}%
+  \else%
+    \begin{beamercolorbox}{subsection in head/foot}
+      \rule{0cm}{0.7pt}
+    \end{beamercolorbox}%
+  \fi%
+  \begin{beamercolorbox}[colsep=1.5pt]{lower separation line head}
+  \end{beamercolorbox}
+}
+
+
+
+ % Frametitle
+
+\defbeamertemplate*{frametitle}{zih01 theme}[1][left]
+{%
+  \ifbeamercolorempty[bg]{frametitle}{}{\nointerlineskip}%
+  \@tempdima=\textwidth%
+  \advance\@tempdima by\beamer@leftmargin%
+  \advance\@tempdima by\beamer@rightmargin%
+  \begin{beamercolorbox}[sep=0.3cm,#1,wd=\the\@tempdima]{frametitle}
+    \usebeamerfont{frametitle}%
+    \vbox{}\vskip-1ex%
+    \if@tempswa\else\csname beamer@fte#1\endcsname\fi%
+    \strut\hspace{3mm}\insertframetitle\strut\par%
+    \vspace{-3.8mm}%
+    \begin{tikzpicture}[x=\paperwidth,y=0.65pt]
+      \shade[left color=white,right color=white] (0.0,0) rectangle (0.001,1);
+      \shade[left color=zihorange,right color=darkblue] (0.02,0) rectangle (0.938,1);
+      \shade[left color=darkblue,right color=zihorange] (0.01,3) rectangle (0.928,4);
+    \end{tikzpicture}
+    
+    {%
+      \ifx\insertframesubtitle\@empty%
+      \else%
+      {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\hspace{3mm}\insertframesubtitle\strut\par}%
+      \fi
+    }%
+    \vskip-1ex%
+    \if@tempswa\else\vskip-.3cm\fi% set inside beamercolorbox... evil here...
+  \end{beamercolorbox}%
+}
+
+
+
+\mode
+<all>

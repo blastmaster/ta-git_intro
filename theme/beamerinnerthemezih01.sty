@@ -1,0 +1,75 @@
+\DeclareOptionBeamer{shadow}[true]{\def\beamer@themerounded@shadow{#1}}
+\ExecuteOptionsBeamer{shadow=false}
+\ProcessOptionsBeamer
+
+\mode<presentation>
+
+\newlength{\dings}\setlength{\dings}{7.2mm}
+
+%%% set variales for author details
+\newcommand{\room}[1]{\def\ROOM{#1}}
+\newcommand{\address}[1]{\def\ADR{#1}}
+\newcommand{\city}[1]{\def\CITY{#1}}
+\newcommand{\phone}[1]{\def\PHONE{#1}}
+\newcommand{\email}[1]{\def\EMAIL{#1}}
+ %%% command to insert author details
+\newcommand{\insertauthordetails}{\ROOM\\\ADR\\\CITY}
+\newcommand{\insertemail}{\usebeamercolor[fg]{titlepage}E-Mail:
+\href{mailto:\EMAIL}{\EMAIL}}
+\newcommand{\insertphone}{\usebeamercolor[fg]{titlepage}Telefon: \PHONE}
+
+\setbeamertemplate{blocks}[rounded][shadow=\beamer@themerounded@shadow]
+\setbeamertemplate{items}[ball]
+\setbeamertemplate{sections/subsections in toc}[ball]
+\setbeamertemplate{part page}[default][colsep=-4bp,rounded=true,shadow=\beamer@themerounded@shadow]
+
+%\definecolor{darkblue}{rgb}{0.04, 0.16, 0.32}
+
+\defbeamertemplate*{title page}{zih}[1][]
+{
+  \definecolor{zihorange}{rgb}{0.898, 0.420, 0.125}
+  \setbeamercolor{title}{fg=zihorange}
+  \setbeamercolor{subtitle}{fg=zihorange}
+  \setbeamercolor{titlepage}{fg=white}
+  \vbox{}
+  \vfill
+  \begin{centering}
+
+    \vspace{22mm}%
+
+    \parbox{\textwidth}{%for positioning title,subtitle and date
+    	\begin{centering}
+    	{\LARGE\usebeamercolor[fg]{title}\inserttitle\par}%
+    	\ifx\insertsubtitle\@empty%
+    	\else%
+      		\vspace{5mm}%
+      		{\itshape\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+    	\fi%
+    \vspace{3mm}%
+    \usebeamercolor[fg]{titlepage}\insertauthor\\
+    \vspace{2mm}%
+    \scriptsize\usebeamercolor[fg]{titlepage}\insertdate\\
+    \end{centering}
+    }%
+
+  	\vspace{3mm}
+%  	\includegraphics[height=0.2\textheight]{theme/logo/LCTP-logo}%
+    \vspace{0.2\textheight}
+
+  \end{centering}%
+
+  \vspace{-1mm}
+  \parbox{0.7\textwidth}{%positioning author information
+  	\footnotesize\usebeamercolor[fg]{titlepage}
+  	\insertauthordetails \\
+  	\vspace{-1mm}\\
+  	\insertphone\\
+  	\insertemail
+  }
+}
+
+
+
+\setbeamertemplate{title page}[zih][colsep=-4bp,rounded=true,shadow=\beamer@themerounded@shadow]
+
+\mode<all>

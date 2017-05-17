@@ -1,8 +1,5 @@
 \documentclass[11pt]{beamer}
-\usetheme{Frankfurt}
-\usepackage[latin1]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{appendixnumberbeamer}
+\usepackage[utf8x]{inputenc}
 
 \usepackage{multirow}
 \usepackage{adjustbox}
@@ -15,6 +12,8 @@
 \usepackage{gitdags}
 \usepackage{color}
 \usepackage{listings}
+
+\input{theme/theme}
 
 \newcommand\Small{\fontsize{8}{8.0}\selectfont}
 \newcommand*\LSTfont{\Small\ttfamily}
@@ -39,14 +38,29 @@
     stringstyle=\color{orange}
 }
 
-\title{Introduction into Git}
-%\author{}<++>
+\date{11. Mai 2017}
+\institute[ZIH TUD]{Zentrum f\"{u}r Informationsdienste und Hochleistungsrechnen -- TU Dresden}
+\title[LCTP]{Introduction into Git}
+\author[Oeste]{Sebastian~Oeste}
+
+\room{FAL 245}
+\address{Chemnitzer Strasse 46b}
+\city{01069 Dresden}
+\phone{+49 0351 - 463 32405}
+\email{sebastian.oeste@tu-dresden.de}
+
 
 \date{\today}
 
+\setbeamercovered{transparent}
+
 \begin{document}
 
-\maketitle
+\zihmaketitle
+
+\begin{frame}{Table of Contents}
+    \tableofcontents
+\end{frame}
 
 \input{content/whatsgit.tex}
 \input{content/intro.tex}
