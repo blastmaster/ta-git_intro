@@ -155,7 +155,7 @@
                 font = \fontfamily{lmtt}\selectfont\tiny]
                 \node[state] (remote) {remote: origin};
                 \node[state] (working) [below=of remote] {local repository}
-                edge [<-, in=0, out=0]  node[whatis, right] {git pull origin master} (remote)
+                edge [<-, in=0, out=0]  node[whatis, right] {git fetch origin master} (remote)
                 edge [->, in=180, out=180] node[whatis, left] {git push origin master} (remote);
         \end{tikzpicture}
     \end{figure}
