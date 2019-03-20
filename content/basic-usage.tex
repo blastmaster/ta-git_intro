@@ -219,52 +219,170 @@
 \end{frame}
 
 
+\begin{frame}[fragile]{Commit history}
+    \begin{minipage}{0.49\textwidth}
+        \begin{figure}
+            \begin{tikzpicture}
+                \visible<-1>{
+                    \gitDAG[grow right sep = 2em]
+                    {
+                        A
+                    };
+                    \gitbranch {master}
+                    {below=of A}
+                    {A}
+                    \gitHEAD
+                    {above=of A}
+                    {A}
+                }
+                \visible<2>{
+                    \gitDAG[grow right sep = 2em]
+                    {
+                        A -- B
+                    };
+                    \gitbranch {master}
+                    {below=of A}
+                    {A}
+                    \gitHEAD
+                    {above=of B}
+                    {B}
+                }
+            \end{tikzpicture}
+        \end{figure}
+    \end{minipage}
+    \begin{minipage}{0.49\textwidth}
+        \begin{itemize}
+            \visible<1->{
+                \item \texttt{git add}
+                \item \texttt{git commit}
+            }
+            \visible<2->{
+                \item \texttt{git add}
+                \item \texttt{git commit}
+            }
+        \end{itemize}
+    \end{minipage}
+\end{frame}
+
 \section{Branches}
 
 \begin{frame}[fragile]{Branching}
+    \begin{minipage}{0.59\textwidth}
     \begin{figure}[b]
         \centering
         \begin{tikzpicture}
-            \gitDAG[grow right sep = 2em]
+            \visible<-1>
             {
-                A -- B -- C
-            };
-            \gitbranch {master}
-            {above=of C}
-            {C}
-            {A}
-            \gitHEAD
-            {above=of master}
-            {master}
+                \gitDAG[grow right sep = 2em]
+                {
+                    A -- B
+                };
+                \gitbranch {master}
+                {below=of A}
+                {A}
+                \gitHEAD
+                {above=of B}
+                {B}
+            }
+            \visible<2->
+            {
+                %TODO
+                \gitDAG[grow right sep = 2em]
+                {
+                    A -- B -- {
+                        D,
+                    }
+                };
+                \gitbranch {master}
+                {below=of A}
+                {A}
+                \gitbranch
+                {feature-X}
+                {below=of D}
+                {D}
+                \gitHEAD
+                {above=of D}
+                {D}
+            }
         \end{tikzpicture}
     \end{figure}
+    \end{minipage}
+    \begin{minipage}{0.39\textwidth}
+        \begin{itemize}
+                \item \texttt{git branch feature-X}
+                \item \texttt{git checkout feature-X}
+                \item \texttt{git add}
+                \item \texttt{git commit}
+        \end{itemize}
+    \end{minipage}
 \end{frame}
 
 \begin{frame}[fragile]{Branching}
-    \begin{figure}[b]
-        \centering
-        \begin{tikzpicture}
-            \gitDAG[grow right sep = 2em]
-            {
-                A -- B -- {
-                    C,
-                    D -- E,
-                }
+    \begin{minipage}{0.59\textwidth}
+        \begin{figure}[b]
+            \centering
+            \begin{tikzpicture}
+                \visible<1>
+                {
+                    \gitDAG[grow right sep = 2em]
+                    {
+                        A -- B -- {
+                            C,
+                            D,
+                        }
 
-            };
-            \gitbranch {master}
-            {above=of C}
-            {C}
-            {A}
-            \gitbranch
-            {feature X}
-            {above=of E}
-            {E}
-            \gitHEAD
-            {above=of master}
-            {master}
-        \end{tikzpicture}
-    \end{figure}
+                    };
+                    \gitbranch {master}
+                    {below=of A}
+                    {A}
+                    \gitbranch
+                    {feature-X}
+                    {below=of D}
+                    {D}
+                    \gitHEAD
+                    {above=of C}
+                    {C}
+                }
+                \visible<2->
+                {
+                    \gitDAG[grow right sep = 2em]
+                    {
+                        A -- B -- {
+                            C,
+                            D -- E,
+                        }
+
+                    };
+                    \gitbranch {master}
+                    {below=of A}
+                    {A}
+                    \gitbranch
+                    {feature-X}
+                    {below=of D}
+                    {D}
+                    \gitHEAD
+                    {above=of E}
+                    {E}
+                }
+            \end{tikzpicture}
+        \end{figure}
+    \end{minipage}
+    \begin{minipage}{0.39\textwidth}
+        \begin{itemize}
+                \visible<1>
+                {
+                    \item \texttt{git checkout master}
+                    \item \texttt{git add}
+                    \item \texttt{git commit}
+                }
+                \visible<2->
+                {
+                    \item \texttt{git checkout feature-X}
+                    \item \texttt{git add}
+                    \item \texttt{git commit}
+                }
+        \end{itemize}
+    \end{minipage}
 \end{frame}
 
 \begin{frame}[fragile]{Branch Syntax}
@@ -289,31 +407,31 @@
 
 % demonstrate merging of two branches
 \begin{frame}[fragile]{Merging}
-    \begin{figure}[b]
-        \centering
-        \begin{tikzpicture}
-            \gitDAG[grow right sep = 2em]
-            {
-                A -- B -- {
-                    C,
-                    D -- E,
-                }
-            };
-            \gitbranch
-            {master}
-            {above=of C}
-            {C}
-            \gitbranch
-            {feature X}
-            {above=of E}
-            {E}
-            {feature X}
-            \gitHEAD
-            {above=of master}
-            {master}
-        \end{tikzpicture}
-        \caption{Before\ldots}
-    \end{figure}
+        \begin{figure}
+            \centering
+            \begin{tikzpicture}
+                \gitDAG[grow right sep = 2em]
+                {
+                    A -- B -- {
+                        C,
+                        D -- E,
+                    }
+                };
+                \gitbranch
+                {master}
+                {below=of A}
+                {A}
+                \gitbranch
+                {feature-X}
+                {below=of D}
+                {D}
+                {feature X}
+                \gitHEAD
+                {above=of C}
+                {C}
+            \end{tikzpicture}
+            \caption{Before merge\ldots}
+        \end{figure}
 \end{frame}
 
 \begin{frame}[fragile]{Merging}
@@ -329,17 +447,17 @@
             };
             \gitbranch
             {master}
+            {below=of A}
+            {A}
+            \gitbranch
+            {feature-X}
+            {below=of D}
+            {D}
+            \gitHEAD
             {above=of E'}
             {E'}
-            \gitbranch
-            {feature X}
-            {below=of E}
-            {E}
-            \gitHEAD
-            {above=of master}
-            {master}
         \end{tikzpicture}
-        \caption{after: \texttt{git merge feature X}}
+        \caption{after: \texttt{git merge feature-X}}
     \end{figure}
 \end{frame}
 
@@ -354,19 +472,19 @@
                     D -- E,
                 }
             };
-            \gitremotebranch
-            [origmaster]
-            {origin/master}
-            {above=of C}
-            {C}
             \gitbranch
             {master}
-            {above=of E}
-            {E}
+            {below=of A}
+            {A}
+            \gitbranch
+            {feature-X}
+            {below=of D}
+            {D}
             \gitHEAD
-            {above=of master}
-            {master}
+            {above=of C}
+            {C}
         \end{tikzpicture}
+        \caption{Before rebase\ldots}
     \end{figure}
 \end{frame}
 
@@ -380,19 +498,15 @@
                     {[nodes=unreachable] D -- E},
                 }
             };
-            \gitremotebranch
-            [origmaster]
-            {origin/master}
-            {above=of C}
-            {C}
             \gitbranch
             {master}
+            {below=of A}
+            {A}
+            \gitHEAD
             {above=of E'}
             {E'}
-            \gitHEAD
-            {above=of master}
-            {master}
         \end{tikzpicture}
+        \caption{After \texttt{git rebase feature-X}}
     \end{figure}
 \end{frame}
 
