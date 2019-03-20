@@ -25,21 +25,22 @@
 
 \end{frame}
 
-\begin{frame}[fragile]{How it NOT works}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.8\textwidth]{img/filebased.png}
-        \caption{storing changes to a base file}
-    \end{figure}
-\end{frame}
 
 \begin{frame}[fragile]{How it works}
     \begin{figure}
         \centering
         \includegraphics[width=0.8\textwidth]{img/snapshotbased.png}
-        \caption{storing snapshots over time}
+        \caption{storing stream of snapshots over time}
     \end{figure}
 \end{frame}
+
+%\begin{frame}[fragile]{How it NOT works}
+    %\begin{figure}
+        %\centering
+        %\includegraphics[width=0.8\textwidth]{img/filebased.png}
+        %\caption{storing changes to a base file}
+    %\end{figure}
+%\end{frame}
 
 \begin{frame}{What is a git repository?}
 
@@ -49,15 +50,15 @@
     \end{figure}
 \end{frame}
 
-\begin{frame}{Basic Workflow}
-    \begin{enumerate}
-        \item Modify files in your working directory.
-        \item Stage the files, adding snapshots of them to your staging area.
-        \item Commit, stores the snapshot in the staging area permanently in
-            your git directory.
-        \item Push your commits to an remote repository on a server.
-    \end{enumerate}
-\end{frame}
+%\begin{frame}{Basic Workflow}
+    %\begin{enumerate}
+        %\item Modify files in your working directory.
+        %\item Stage the files, adding snapshots of them to your staging area.
+        %\item Commit, stores the snapshot in the staging area permanently in
+            %your git directory.
+        %\item Push your commits to an remote repository on a server.
+    %\end{enumerate}
+%\end{frame}
 
 \defverbatim\setusername{%
     \scriptsize
@@ -70,20 +71,20 @@
     \newline
 }
 
-\begin{frame}{Configure Git}
+%\begin{frame}{Configure Git}
 
-    \emph{Place where the git configuration can live:}
-    \vspace{1cm}
+    %\emph{Place where the git configuration can live:}
+    %\vspace{1cm}
 
-    % TODO: take a table for that
-    \begin{itemize}
-            \item \textbf{/etc/gitconfig} system wide configuration
-                \textit{-\,-system}
-            \item \textbf{$\sim$/.gitconfig} or \textbf{$\sim$/.config/gitconfig}  user wide configuration \textit{-\,-global}
-            \item \textbf{.git/config} repository specific configuration
-    \end{itemize}
+    %% TODO: take a table for that
+    %\begin{itemize}
+            %\item \textbf{/etc/gitconfig} system wide configuration
+                %\textit{-\,-system}
+            %\item \textbf{$\sim$/.gitconfig} or \textbf{$\sim$/.config/gitconfig}  user wide configuration \textit{-\,-global}
+            %\item \textbf{.git/config} repository specific configuration
+    %\end{itemize}
 
-\end{frame}
+%\end{frame}
 
 \begin{frame}[fragile]{Configure Git}
     \textbf{Show your configuration:}
@@ -136,38 +137,38 @@ git clone -b <branchname> <GIT_URL>
     \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Follow the changes}
-    \textbf{What is the status of your local repo?}
-    \begin{lstlisting}
-        git status
-    \end{lstlisting}
-    \textbf{What happens so far?}
-    \begin{lstlisting}
-        git log
-    \end{lstlisting}
-    \textbf{What has changed?}
-    \begin{lstlisting}
-        git diff [--staged]
-    \end{lstlisting}
-    \textbf{Who has changed?}
-    \begin{lstlisting}
-        git blame
-    \end{lstlisting}
-\end{frame}
+%\begin{frame}[fragile]{Follow the changes}
+    %\textbf{What is the status of your local repo?}
+    %\begin{lstlisting}
+        %git status
+    %\end{lstlisting}
+    %\textbf{What happens so far?}
+    %\begin{lstlisting}
+        %git log
+    %\end{lstlisting}
+    %\textbf{What has changed?}
+    %\begin{lstlisting}
+        %git diff [--staged]
+    %\end{lstlisting}
+    %\textbf{Who has changed?}
+    %\begin{lstlisting}
+        %git blame
+    %\end{lstlisting}
+%\end{frame}
 
-\begin{frame}[fragile]{Ignoring Files}
-    \emph{Ignore files that follow a specific pattern with a \textbf{.gitignore} file}
+%\begin{frame}[fragile]{Ignoring Files}
+    %\emph{Ignore files that follow a specific pattern with a \textbf{.gitignore} file}
 
-    \textit{.gitignore} rules:
-    \begin{itemize}
-        \item Black lines or lines starting with \# are ignored.
-        \item Standard glob pattern work.
-        \item You can start patterns with a forward slash (/) to avoid recusivity.
-        \item You can negate a pattern by starting it with an exclamation point (!).
-    \end{itemize}
+    %\textit{.gitignore} rules:
+    %\begin{itemize}
+        %\item Black lines or lines starting with \# are ignored.
+        %\item Standard glob pattern work.
+        %\item You can start patterns with a forward slash (/) to avoid recusivity.
+        %\item You can negate a pattern by starting it with an exclamation point (!).
+    %\end{itemize}
 
-    \vspace{1em}
-    Example:\\
-    \url{https://github.com/github/gitignore}
+    %\vspace{1em}
+    %Example:\\
+    %\url{https://github.com/github/gitignore}
 
-\end{frame}
+%\end{frame}
