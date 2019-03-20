@@ -32,13 +32,13 @@
             \node[state] (remote) {remote};
             \node[state] (repository) [below=of remote] {Local Repository};
             \node[state] (index) [below=of repository] {Staging Area};
-            \node[state] (stash) [below=of index] {Stash};
-            \node[state] (tree)  [below=of stash] {Working Directory};
+            %\node[state] (stash) [below=of index] {Stash};
+            \node[state] (tree)  [below=of index] {Working Directory};
 
             \node[whatis, left] at (remote.west) {Repository on the internet or network.};
             \node[whatis, left] at (repository.west) {Local repository that contains complete history.};
             \node[whatis, left] at (index.west) {Snapshot of the working tree for next commit.};
-            \node[whatis, left] at (stash.west) {A place to hide modification if you need a clean workspace.};
+            %\node[whatis, left] at (stash.west) {A place to hide modification if you need a clean workspace.};
             \node[whatis, left] at (tree.west) {The direcotries and files on your filesystem.};
         \end{tikzpicture}
     \end{figure}
@@ -69,30 +69,30 @@
     \end{figure}
 \end{frame}
 
-\begin{frame}[fragile]{Using the Stash}
-    \begin{figure}[b]
-        \centering
-        \begin{tikzpicture}
-            \tikzstyle{state} = [ draw,
-                node distance = 1.4em,
-                drop shadow = {opacity=0.15},
-                font = \fontfamily{lmtt}\selectfont\small,
-                shape = rectangle,
-                %rounded corners = .5em,
-                minimum height = 2em,
-                minimum width = 4cm,
-                text opacity = 0.75,
-                semithick ]
-            \tikzstyle{whatis} = [
-                node distance = 1.4em,
-                font = \fontfamily{lmtt}\selectfont\tiny]
-            \node[state] (stash) [below=of index] {Stash};
-            \node[state] (tree)  [below=of stash] {Working Directory}
-                edge [->, out=0, in=0] node [whatis, right] {git stash} (stash)
-                edge [<-, out=180, in=180] node [whatis, left] {git stash apply} (stash);
-        \end{tikzpicture}
-    \end{figure}
-\end{frame}
+%\begin{frame}[fragile]{Using the Stash}
+    %\begin{figure}[b]
+        %\centering
+        %\begin{tikzpicture}
+            %\tikzstyle{state} = [ draw,
+                %node distance = 1.4em,
+                %drop shadow = {opacity=0.15},
+                %font = \fontfamily{lmtt}\selectfont\small,
+                %shape = rectangle,
+                %%rounded corners = .5em,
+                %minimum height = 2em,
+                %minimum width = 4cm,
+                %text opacity = 0.75,
+                %semithick ]
+            %\tikzstyle{whatis} = [
+                %node distance = 1.4em,
+                %font = \fontfamily{lmtt}\selectfont\tiny]
+            %\node[state] (stash) [below=of index] {Stash};
+            %\node[state] (tree)  [below=of stash] {Working Directory}
+                %edge [->, out=0, in=0] node [whatis, right] {git stash} (stash)
+                %edge [<-, out=180, in=180] node [whatis, left] {git stash apply} (stash);
+        %\end{tikzpicture}
+    %\end{figure}
+%\end{frame}
 
 \begin{frame}[fragile]{Commit Changes}
     \begin{figure}[b]
@@ -114,7 +114,7 @@
             \node[state] (repository)  {local repository};
             \node[state] (index) [below=of repository] {Staging Area}
                 edge [->, out=0, in=0] node [whatis, right] {git commit} (repository);
-            \node[state] (tree)  [below=of stash] {Working Directory}
+            \node[state] (tree)  [below=of index] {Working Directory}
                 edge [<-, out=180, in=180] node [whatis, left] {git checkout <commitid>} (repository)
                 edge [->, out=0, in=0] node[whatis, right] {git add <filename>} (index);
         \end{tikzpicture}
