@@ -1,15 +1,5 @@
 \section{Git local}
 
-\begin{frame}{Recording Changes}
-    \emph{Each file in your working directory can be in one of two states:
-        tracked or untracked.}
-
-    \begin{figure}
-        \centering
-            \includegraphics[width=\textwidth]{img/file_lifecycle.png}
-    \end{figure}
-
-\end{frame}
 
 \begin{frame}[fragile]{Git Terminology}
     \begin{figure}[b]
@@ -78,6 +68,19 @@
     \end{figure}
 \end{frame}
 
+\begin{frame}[fragile]{Undoing things}
+
+    \textbf{Unstating a Staged File:}
+    \begin{lstlisting}
+        git reset HEAD <file>
+    \end{lstlisting}
+    \textbf{Unmodifying a Modified File:}
+    \begin{lstlisting}
+        git checkout -- <file>
+    \end{lstlisting}
+
+\end{frame}
+
 %\begin{frame}[fragile]{Using the Stash}
     %\begin{figure}[b]
         %\centering
@@ -130,18 +133,6 @@
     \end{figure}
 \end{frame}
 
-\begin{frame}[fragile]{Undoing things}
-
-    \textbf{Unstating a Staged File:}
-    \begin{lstlisting}
-        git reset HEAD <file>
-    \end{lstlisting}
-    \textbf{Unmodifying a Modified File:}
-    \begin{lstlisting}
-        git checkout -- <file>
-    \end{lstlisting}
-
-\end{frame}
 
 \section{Remotes}
 
@@ -225,6 +216,36 @@
         git remote rm <remote>
     \end{lstlisting}
 
+\end{frame}
+
+%\begin{frame}{Recording Changes}
+    %\emph{Each file in your working directory can be in one of two states:
+        %tracked or untracked.}
+
+    %\begin{figure}
+        %\centering
+            %\includegraphics[width=\textwidth]{img/file_lifecycle.png}
+    %\end{figure}
+
+%\end{frame}
+
+\begin{frame}[fragile]{Follow the changes}
+    \textbf{What is the status of your local repo?}
+    \begin{lstlisting}
+        git status
+    \end{lstlisting}
+    \textbf{What happens so far?}
+    \begin{lstlisting}
+        git log
+    \end{lstlisting}
+    \textbf{What has changed?}
+    \begin{lstlisting}
+        git diff [--staged]
+    \end{lstlisting}
+    \textbf{Who has changed?}
+    \begin{lstlisting}
+        git blame <file>
+    \end{lstlisting}
 \end{frame}
 
 
