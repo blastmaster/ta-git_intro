@@ -29,7 +29,7 @@
                 node distance = 1.4em,
                 left,
                 font = \fontfamily{lmtt}\selectfont\tiny]
-            \node[state] (remote) {remote};
+            \node[state] (remote) {Remote};
             \node[state] (repository) [below=of remote] {Local Repository};
             \node[state] (index) [below=of repository] {Staging Area};
             %\node[state] (stash) [below=of index] {Stash};
@@ -120,7 +120,7 @@
             \tikzstyle{whatis} = [
                 node distance = 1.4em,
                 font = \fontfamily{lmtt}\selectfont\tiny]
-            \node[state] (repository)  {local repository};
+            \node[state] (repository)  {Local Repository};
             \node[state] (index) [below=of repository] {Staging Area}
                 edge [->, out=0, in=0] node [whatis, right] {git commit} (repository);
             \node[state] (tree)  [below=of index] {Working Directory}
@@ -162,8 +162,8 @@
             \tikzstyle{whatis} = [
                 node distance = 1.4em,
                 font = \fontfamily{lmtt}\selectfont\tiny]
-                \node[state] (remote) {remote: origin};
-                \node[state] (working) [below=of remote] {local repository}
+                \node[state] (remote) {Remote: origin};
+                \node[state] (working) [below=of remote] {Local Repository}
                 edge [<-, in=0, out=0]  node[whatis, right] {git fetch origin master} (remote)
                 edge [->, in=180, out=180] node[whatis, left] {git push origin master} (remote);
         \end{tikzpicture}
