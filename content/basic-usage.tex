@@ -228,7 +228,9 @@
 \end{frame}
 
 
-\begin{frame}[fragile]{Commit history}
+%%% BRANCHING %%%
+
+\begin{frame}[fragile]{Branching - master branch}
     \begin{minipage}{0.49\textwidth}
         \begin{figure}
             \begin{tikzpicture}
@@ -250,8 +252,8 @@
                         A -- B
                     };
                     \gitbranch {master}
-                    {below=of A}
-                    {A}
+                    {below=of B}
+                    {B}
                     \gitHEAD
                     {above=of B}
                     {B}
@@ -275,7 +277,7 @@
 
 \section{Branches}
 
-\begin{frame}[fragile]{Branching}
+\begin{frame}[fragile]{Branching - a new branch}
     \begin{minipage}{0.59\textwidth}
     \begin{figure}[b]
         \centering
@@ -287,8 +289,8 @@
                     A -- B
                 };
                 \gitbranch {master}
-                {below=of A}
-                {A}
+                {below=of B}
+                {B}
                 \gitHEAD
                 {above=of B}
                 {B}
@@ -303,8 +305,8 @@
                     }
                 };
                 \gitbranch {master}
-                {below=of A}
-                {A}
+                {below=of B}
+                {B}
                 \gitbranch
                 {feature-X}
                 {below=of D}
@@ -318,15 +320,21 @@
     \end{minipage}
     \begin{minipage}{0.39\textwidth}
         \begin{itemize}
-                \item \texttt{git branch feature-X}
-                \item \texttt{git checkout feature-X}
-                \item \texttt{git add}
-                \item \texttt{git commit}
+                \visible<1->
+                {
+                    \item \texttt{git branch feature-X}
+                    \item \texttt{git checkout feature-X}
+                }
+                \visible<2->
+                {
+                    \item \texttt{git add}
+                    \item \texttt{git commit}
+                }
         \end{itemize}
     \end{minipage}
 \end{frame}
 
-\begin{frame}[fragile]{Branching}
+\begin{frame}[fragile]{Branching - a new branch}
     \begin{minipage}{0.59\textwidth}
         \begin{figure}[b]
             \centering
@@ -342,15 +350,15 @@
 
                     };
                     \gitbranch {master}
-                    {below=of A}
-                    {A}
+                    {above=of C}
+                    {C}
                     \gitbranch
                     {feature-X}
                     {below=of D}
                     {D}
                     \gitHEAD
-                    {above=of C}
-                    {C}
+                    {above=of master}
+                    {master}
                 }
                 \visible<2->
                 {
@@ -363,12 +371,12 @@
 
                     };
                     \gitbranch {master}
-                    {below=of A}
-                    {A}
+                    {above=of C}
+                    {C}
                     \gitbranch
                     {feature-X}
-                    {below=of D}
-                    {D}
+                    {below=of E}
+                    {E}
                     \gitHEAD
                     {above=of E}
                     {E}
@@ -428,16 +436,16 @@
                 };
                 \gitbranch
                 {master}
-                {below=of A}
-                {A}
-                \gitbranch
-                {feature-X}
-                {below=of D}
-                {D}
-                {feature X}
-                \gitHEAD
                 {above=of C}
                 {C}
+                \gitbranch
+                {feature-X}
+                {below=of E}
+                {E}
+                {feature X}
+                \gitHEAD
+                {above=of master}
+                {master}
             \end{tikzpicture}
             \caption{Before merge\ldots}
         \end{figure}
@@ -456,15 +464,15 @@
             };
             \gitbranch
             {master}
-            {below=of A}
-            {A}
-            \gitbranch
-            {feature-X}
-            {below=of D}
-            {D}
-            \gitHEAD
             {above=of E'}
             {E'}
+            \gitbranch
+            {feature-X}
+            {below=of E}
+            {E}
+            \gitHEAD
+            {above=of master}
+            {master}
         \end{tikzpicture}
         \caption{after: \texttt{git merge feature-X}}
     \end{figure}
@@ -483,15 +491,15 @@
             };
             \gitbranch
             {master}
-            {below=of A}
-            {A}
-            \gitbranch
-            {feature-X}
-            {below=of D}
-            {D}
-            \gitHEAD
             {above=of C}
             {C}
+            \gitbranch
+            {feature-X}
+            {below=of E}
+            {E}
+            \gitHEAD
+            {above=of master}
+            {master}
         \end{tikzpicture}
         \caption{Before rebase\ldots}
     \end{figure}
@@ -509,16 +517,15 @@
             };
             \gitbranch
             {master}
-            {below=of A}
-            {A}
-            \gitHEAD
             {above=of E'}
             {E'}
+            \gitHEAD
+            {above=of master}
+            {master}
         \end{tikzpicture}
         \caption{After \texttt{git rebase feature-X}}
     \end{figure}
 \end{frame}
-
 
 
 %\begin{frame}[fragile]{Working with the log}
