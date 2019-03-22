@@ -1,0 +1,298 @@
+%%% BRANCHING %%%
+
+\begin{frame}[fragile]{Branching - master branch}
+    \begin{minipage}{0.49\textwidth}
+        \begin{figure}
+            \begin{tikzpicture}
+                \visible<-1>{
+                    \gitDAG[grow right sep = 2em]
+                    {
+                        A
+                    };
+                    \gitbranch {master}
+                    {below=of A}
+                    {A}
+                    \gitHEAD
+                    {above=of A}
+                    {A}
+                }
+                \visible<2>{
+                    \gitDAG[grow right sep = 2em]
+                    {
+                        A -- B
+                    };
+                    \gitbranch {master}
+                    {below=of B}
+                    {B}
+                    \gitHEAD
+                    {above=of B}
+                    {B}
+                }
+            \end{tikzpicture}
+        \end{figure}
+    \end{minipage}
+    \begin{minipage}{0.49\textwidth}
+        \begin{itemize}
+            \visible<1->{
+                \item \texttt{git add}
+                \item \texttt{git commit}
+            }
+            \visible<2->{
+                \item \texttt{git add}
+                \item \texttt{git commit}
+            }
+        \end{itemize}
+    \end{minipage}
+\end{frame}
+
+\section{Branches}
+
+\begin{frame}[fragile]{Branching - a new branch}
+    \begin{minipage}{0.59\textwidth}
+    \begin{figure}[b]
+        \centering
+        \begin{tikzpicture}
+            \visible<-1>
+            {
+                \gitDAG[grow right sep = 2em]
+                {
+                    A -- B
+                };
+                \gitbranch {master}
+                {below=of B}
+                {B}
+                \gitHEAD
+                {above=of B}
+                {B}
+            }
+            \visible<2->
+            {
+                %TODO
+                \gitDAG[grow right sep = 2em]
+                {
+                    A -- B -- {
+                        D,
+                    }
+                };
+                \gitbranch {master}
+                {below=of B}
+                {B}
+                \gitbranch
+                {feature-X}
+                {below=of D}
+                {D}
+                \gitHEAD
+                {above=of D}
+                {D}
+            }
+        \end{tikzpicture}
+    \end{figure}
+    \end{minipage}
+    \begin{minipage}{0.39\textwidth}
+        \begin{itemize}
+                \visible<1->
+                {
+                    \item \texttt{git branch feature-X}
+                    \item \texttt{git checkout feature-X}
+                }
+                \visible<2->
+                {
+                    \item \texttt{git add}
+                    \item \texttt{git commit}
+                }
+        \end{itemize}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]{Branching - a new branch}
+    \begin{minipage}{0.59\textwidth}
+        \begin{figure}[b]
+            \centering
+            \begin{tikzpicture}
+                \visible<1>
+                {
+                    \gitDAG[grow right sep = 2em]
+                    {
+                        A -- B -- {
+                            C,
+                            D,
+                        }
+
+                    };
+                    \gitbranch {master}
+                    {above=of C}
+                    {C}
+                    \gitbranch
+                    {feature-X}
+                    {below=of D}
+                    {D}
+                    \gitHEAD
+                    {above=of master}
+                    {master}
+                }
+                \visible<2->
+                {
+                    \gitDAG[grow right sep = 2em]
+                    {
+                        A -- B -- {
+                            C,
+                            D -- E,
+                        }
+
+                    };
+                    \gitbranch {master}
+                    {above=of C}
+                    {C}
+                    \gitbranch
+                    {feature-X}
+                    {below=of E}
+                    {E}
+                    \gitHEAD
+                    {above=of E}
+                    {E}
+                }
+            \end{tikzpicture}
+        \end{figure}
+    \end{minipage}
+    \begin{minipage}{0.39\textwidth}
+        \begin{itemize}
+                \visible<1>
+                {
+                    \item \texttt{git checkout master}
+                    \item \texttt{git add}
+                    \item \texttt{git commit}
+                }
+                \visible<2->
+                {
+                    \item \texttt{git checkout feature-X}
+                    \item \texttt{git add}
+                    \item \texttt{git commit}
+                }
+        \end{itemize}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]{Branch Syntax}
+    \textbf{create new branch:}
+        \begin{lstlisting}
+            git branch <branchname>
+        \end{lstlisting}
+        \begin{lstlisting}
+            git checkout -b <branchname>
+        \end{lstlisting}
+    \textbf{delete branch:}
+        \begin{lstlisting}
+            git branch -d <branchname>
+        \end{lstlisting}
+    \textbf{list local branches:}
+        \begin{lstlisting}
+            git branch
+            git branch --merged
+            git branch --no-merged
+        \end{lstlisting}
+\end{frame}
+
+% demonstrate merging of two branches
+\begin{frame}[fragile]{Merging}
+        \begin{figure}
+            \centering
+            \begin{tikzpicture}
+                \gitDAG[grow right sep = 2em]
+                {
+                    A -- B -- {
+                        C,
+                        D -- E,
+                    }
+                };
+                \gitbranch
+                {master}
+                {above=of C}
+                {C}
+                \gitbranch
+                {feature-X}
+                {below=of E}
+                {E}
+                {feature X}
+                \gitHEAD
+                {above=of master}
+                {master}
+            \end{tikzpicture}
+            \caption{Before merge\ldots}
+        \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Merging}
+    \begin{figure}[b]
+        \centering
+        \begin{tikzpicture}
+            \gitDAG[grow right sep = 2em]
+            {
+                A -- B --{
+                C,
+                    {D -- E},
+                } -- E'
+            };
+            \gitbranch
+            {master}
+            {above=of E'}
+            {E'}
+            \gitbranch
+            {feature-X}
+            {below=of E}
+            {E}
+            \gitHEAD
+            {above=of master}
+            {master}
+        \end{tikzpicture}
+        \caption{after: \texttt{git merge feature-X}}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Rebasing}
+    \begin{figure}
+        \centering
+        \begin{tikzpicture}
+            \gitDAG[grow right sep = 2em]
+            {
+                A -- B -- {
+                    C,
+                    D -- E,
+                }
+            };
+            \gitbranch
+            {master}
+            {above=of C}
+            {C}
+            \gitbranch
+            {feature-X}
+            {below=of E}
+            {E}
+            \gitHEAD
+            {above=of master}
+            {master}
+        \end{tikzpicture}
+        \caption{Before rebase\ldots}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Rebasing}
+    \begin{figure}
+        \centering
+        \begin{tikzpicture}
+            \gitDAG[grow right sep = 2em] {
+                A -- B -- {
+                    C -- D' -- E',
+                    {[nodes=unreachable] D -- E},
+                }
+            };
+            \gitbranch
+            {master}
+            {above=of E'}
+            {E'}
+            \gitHEAD
+            {above=of master}
+            {master}
+        \end{tikzpicture}
+        \caption{After \texttt{git rebase feature-X}}
+    \end{figure}
+\end{frame}
